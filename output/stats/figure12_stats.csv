@@ -1,0 +1,31 @@
+figure,panel,test,alternative,group_1,group_2,n_group_1,n_group_2,p_uncorrected,p_holm,reject_holm_0.05
+figure12,Clustering,Mann-Whitney U,two-sided,Tel,Di,52,72,9.691245839769543e-10,2.907373751930863e-09,True
+figure12,Clustering,Mann-Whitney U,two-sided,Tel,Mes,52,30,0.0004497478730302564,0.0008994957460605128,True
+figure12,Clustering,Mann-Whitney U,two-sided,Tel,Hind,52,194,1.7230845268240597e-26,1.0338507160944358e-25,True
+figure12,Clustering,Mann-Whitney U,two-sided,Di,Mes,72,30,0.044575149916973957,0.044575149916973957,True
+figure12,Clustering,Mann-Whitney U,two-sided,Di,Hind,72,194,1.3772701923210946e-19,6.886350961605474e-19,True
+figure12,Clustering,Mann-Whitney U,two-sided,Mes,Hind,30,194,1.6187320429632345e-15,6.474928171852938e-15,True
+figure12,Modularity Q,Mann-Whitney U,two-sided,Tel,Di,48,72,0.32561454401290446,0.32561454401290446,False
+figure12,Modularity Q,Mann-Whitney U,two-sided,Tel,Mes,48,22,0.10674022562179415,0.2134804512435883,False
+figure12,Modularity Q,Mann-Whitney U,two-sided,Tel,Hind,48,182,1.6139237544771062e-15,8.069618772385531e-15,True
+figure12,Modularity Q,Mann-Whitney U,two-sided,Di,Mes,72,22,0.02647966090795527,0.0794389827238658,False
+figure12,Modularity Q,Mann-Whitney U,two-sided,Di,Hind,72,182,9.728544713735753e-16,5.8371268282414516e-15,True
+figure12,Modularity Q,Mann-Whitney U,two-sided,Mes,Hind,22,182,1.47620215595234e-09,5.90480862380936e-09,True
+figure12,Global Efficiency,Mann-Whitney U,two-sided,Tel,Di,52,72,0.5654741916202902,1.0,False
+figure12,Global Efficiency,Mann-Whitney U,two-sided,Tel,Mes,52,30,0.5864942006742732,1.0,False
+figure12,Global Efficiency,Mann-Whitney U,two-sided,Tel,Hind,52,194,6.516864423534162e-08,3.258432211767081e-07,True
+figure12,Global Efficiency,Mann-Whitney U,two-sided,Di,Mes,72,30,0.868751349113724,1.0,False
+figure12,Global Efficiency,Mann-Whitney U,two-sided,Di,Hind,72,194,3.959770990397953e-11,2.3758625942387717e-10,True
+figure12,Global Efficiency,Mann-Whitney U,two-sided,Mes,Hind,30,194,3.251064816255818e-06,1.3004259265023271e-05,True
+figure12,Post-DCA,Mann-Whitney U,two-sided,Tel,Di,56,56,0.004555949996882141,0.009111899993764282,True
+figure12,Post-DCA,Mann-Whitney U,two-sided,Tel,Mes,56,21,1.4283949651348252e-06,7.1419748256741264e-06,True
+figure12,Post-DCA,Mann-Whitney U,two-sided,Tel,Hind,56,182,8.734927738057178e-14,5.240956642834307e-13,True
+figure12,Post-DCA,Mann-Whitney U,two-sided,Di,Mes,56,21,0.0019005886616371332,0.0057017659849114,True
+figure12,Post-DCA,Mann-Whitney U,two-sided,Di,Hind,56,182,5.1318120644194435e-05,0.00020527248257677774,True
+figure12,Post-DCA,Mann-Whitney U,two-sided,Mes,Hind,21,182,0.1881060735657769,0.1881060735657769,False
+figure12,Pre-DCA,Mann-Whitney U,two-sided,Tel,Di,56,56,0.24096866909074888,0.24096866909074888,False
+figure12,Pre-DCA,Mann-Whitney U,two-sided,Tel,Mes,56,21,0.0005881164650991482,0.0011762329301982964,True
+figure12,Pre-DCA,Mann-Whitney U,two-sided,Tel,Hind,56,182,2.5112426026431505e-05,0.00010044970410572602,True
+figure12,Pre-DCA,Mann-Whitney U,two-sided,Di,Mes,56,21,5.88321438969109e-10,2.941607194845545e-09,True
+figure12,Pre-DCA,Mann-Whitney U,two-sided,Di,Hind,56,182,4.9877574534957536e-05,0.0001496327236048726,True
+figure12,Pre-DCA,Mann-Whitney U,two-sided,Mes,Hind,21,182,4.2039579805960826e-11,2.5223747883576494e-10,True

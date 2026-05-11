@@ -1,0 +1,30 @@
+Figure 14 OO Motif Validation
+================================
+
+Primary unit_norm / OO_count result (region means):
+Pearson r = -0.381842
+Pearson p = 0.00964547
+N = 45
+
+Primary unit_norm / OO_fraction result (region means):
+Pearson r = 0.766538
+Pearson p = 8.34479e-10
+N = 45
+
+FCV unit_norm / OO_fraction result (region means):
+Pearson r = 0.639463
+Pearson p = 2.26128e-06
+N = 45
+
+Post-DCA minus FCV OO_fraction correlation difference:
+Delta r = 0.127075
+
+Degree-controlled OO result (region means):
+Pearson r = 0.656789
+Pearson p = 9.59666e-07
+N = 45
+
+Suggested manuscript sentence:
+Post-DCA was strongly correlated with the regional fraction of output-to-output inter-regional motifs (r = 0.767, p = 8.34e-10) and with degree-controlled OO enrichment (r = 0.657, p = 9.6e-07), confirming that it captures normalized cascade structure rather than raw outgoing edge count.
+
+Full statistics are in figure14_postdca_oo_motif_stats.csv.

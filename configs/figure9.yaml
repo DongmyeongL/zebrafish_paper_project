@@ -1,0 +1,11 @@
+script: figures/figure9_clean.py
+outputs:
+  png: output/png/figure9_final.png
+  pdf: output/pdf/figure9_final.pdf
+main_data:
+  - data/fig1_prism_D_FCS_FCV_bar.csv
+  - data/fig2_prism_A_FCS.csv
+  - data/fig2_prism_B_FCV.csv
+  - data/fc_dynamics_metastability_by_subject_region.csv
+  - data/region_community_io/
+

@@ -1,0 +1,12 @@
+script: figures/figure_sc_fc_final_overview.py
+outputs:
+  png: output/png/figure_sc_fc_final_overview.png
+  pdf: output/pdf/figure_sc_fc_final_overview.pdf
+main_data:
+  - data/fig1_prism_D_FCS_FCV_bar.csv
+  - data/fig4_prism_C_degree_FCV.csv
+  - data/fc_dynamics_metastability_by_subject_region.csv
+  - data/sc_original_per_area_network_metrics.pkl
+  - data/total_selected_region_dac_data.npz
+  - data/region_community_io/
+

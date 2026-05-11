@@ -1,0 +1,11 @@
+script: figures/figure_fc_dynamics_final_fc_shift_summary.py
+outputs:
+  png: output/png/figure_fc_dynamics_final_fc_shift_summary.png
+  pdf: output/pdf/figure_fc_dynamics_final_fc_shift_summary.pdf
+  summary_csv: output/figure_fc_dynamics_final_fc_shift_summary.csv
+main_data:
+  - data/fc_dynamics_state_fc_shift_by_subject_region.csv
+  - data/fc_dynamics_stimulus_fcv_by_subject_region.csv
+  - data/fig1_prism_D_FCS_FCV_bar.csv
+  - data/total_selected_region_dac_data.npz
+

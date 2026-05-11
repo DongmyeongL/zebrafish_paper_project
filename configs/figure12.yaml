@@ -1,0 +1,13 @@
+script: figures/figure12_clean.py
+outputs:
+  png: output/png/figure12_final.png
+  pdf: output/pdf/figure12_final.pdf
+main_data:
+  - data/sc_original_per_area_network_metrics.pkl
+  - data/total_selected_region_dac_data.npz
+  - data/fig1_prism_D_FCS_FCV_bar.csv
+  - data/fig3_prism_A_PostDCA.csv
+  - data/fig3_prism_B_PreDCA.csv
+  - data/*network*.png
+  - data/temp_*_network_diagram.png
+

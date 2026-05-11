@@ -1,0 +1,11 @@
+script: figures/figure13_clean.py
+outputs:
+  png: output/png/figure13_final.png
+  pdf: output/pdf/figure13_final.pdf
+main_data:
+  - data/figure13/layer_asymmetric_epsilon_linear_data.npz
+  - data/figure13/tfigure5_compare_xy_scatter_data.pkl
+  - data/figure13/wsim_fc_null_p_sp_in_fc_mean_std_data.pkl
+  - data/figure13/wsim_fc_null_p_sp_out_fc_mean_std_data.pkl
+  - data/figure13/figure1_whole_brain_fc_mean_std_data.npz
+

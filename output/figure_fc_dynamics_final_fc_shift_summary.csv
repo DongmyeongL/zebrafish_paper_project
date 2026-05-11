@@ -1,0 +1,12 @@
+Metric,Value
+MeanStimulusFCV_vs_SpontaneousFCV_r,0.5673553306803638
+MeanStimulusFCV_vs_SpontaneousFCV_p,4.8228769675208916e-05
+StimulusWiseFCVModulationZ_vs_SpontaneousFCV_r,0.5385255449245868
+StimulusWiseFCVModulationZ_vs_SpontaneousFCV_p,0.00013559988408827739
+MeanStimulusFCV_vs_PostDCA_r,0.45956738670016234
+MeanStimulusFCV_vs_PostDCA_p,0.0014940304681605302
+TopRegion,lOB
+TopRegionDivision,Tel
+TopRegionMeanStimulusFCV,1.4961726339047294
+TopTelRegion,lOB
+TopTelMeanStimulusFCV,1.4961726339047294

@@ -1,0 +1,783 @@
+figure,panel,model,feature_set,feature,weight,left_out_region,left_out_division,standardized_beta
+figure_sc_fc_final_overview,C,PLS LV1,FC,FCS,-0.5450898358381092,,,
+figure_sc_fc_final_overview,C,PLS LV1,FC,FCV,0.5756453787107938,,,
+figure_sc_fc_final_overview,C,PLS LV1,FC,Metastability,0.3203268037984213,,,
+figure_sc_fc_final_overview,C,PLS LV1,FC,Net TE,0.1535236162612667,,,
+figure_sc_fc_final_overview,C,PLS LV1,FC,Neighbor TE,0.4953086985438882,,,
+figure_sc_fc_final_overview,D,PLS LV1,SC,Clustering,-0.5457372715354144,,,
+figure_sc_fc_final_overview,D,PLS LV1,SC,Modularity Q,0.31748431534432825,,,
+figure_sc_fc_final_overview,D,PLS LV1,SC,Global Efficiency,-0.2290502633836619,,,
+figure_sc_fc_final_overview,D,PLS LV1,SC,Post-DCA,0.6069380100791446,,,
+figure_sc_fc_final_overview,D,PLS LV1,SC,Pre-DCA,-0.30265074029303485,,,
+figure_sc_fc_final_overview,D,PLS LV1,SC,log10 (Out/In-deg),0.2982269238894186,,,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5514470522829422,lOB,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5813840245095251,lOB,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.30337074289921157,lOB,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14261440118466673,lOB,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4955058924988488,lOB,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5423705227005998,lP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5667484495237369,lP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.33937691539882997,lP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14205285246154098,lP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49927418065611284,lP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5544599596188404,lPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5740717433272418,lPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.33350310414410633,lPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.13762633316327175,lPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4825458098864521,lPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.550998792636307,lSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5609006408091173,lSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.33540300189549943,lSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.10388161182322511,lSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.508433121165163,lSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5516357482626101,rP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5637601952618227,rP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3463007258344677,rP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1223517682442932,rP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4929282864384197,rP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5579087048703057,rPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5717514971195842,rPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3339389544479069,rPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.13572333705866732,rPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.48156209677605427,rPO,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.556948676316512,rSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5719618453063626,rSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.33395272746315563,rSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.11714831550186611,rSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.48725729082079355,rSP,Tel,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5349420686151933,lHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5890928708801986,lHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.290984860419532,lHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15986843253098307,lHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5065337777389922,lHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5456268223832639,lPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5742013388529632,lPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.32068632738115116,lPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1539149390904942,lPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49603897438705846,lPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5478853005892722,lPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5743577520244005,lPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.32004628926337925,lPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15043744464022712,lPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4948472674134309,lPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.545033976338909,lTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5756531295988637,lTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3202037996563981,lTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15296409194453184,lTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4956137127647102,lTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5479882393441959,rHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5846264235336056,rHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.2854313412768925,rHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1492585192517993,rHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5041544190963589,rHb,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5536445913803625,rPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5718832475750727,rPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31976678134520115,rPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14815905231985393,rPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4921639140998373,rPT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5494136179818022,rPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5713400971654341,rPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.32225255193825064,rPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1515971385035475,rPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49486035415454266,rPrT,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5453028069370788,rTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5771619250530762,rTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3199535594232517,rTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1518341145730329,rTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49406991659054134,rTh,Di,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5346237480145642,lTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5737358606286883,lTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3067119348479157,lTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.17311890839529756,lTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5108446367198013,lTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5396255882527833,lTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5755126811841554,lTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3157441286287259,lTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15526252875302757,lTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5037743251702724,lTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.4731581531857603,rTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.6208979692221717,rTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.2627004144441849,rTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.38343580153119633,rTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.41781880312475833,rTS,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5402977931836015,rTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.568185392218061,rTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31845692192887937,rTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15153952906719892,rTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5107490722033795,rTeO,Mes,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5429550759400237,lCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5793247258094287,lCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3215595757358251,lCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15397417871067937,lCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4924165301040984,lCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5814153058022892,lMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5405260696700864,lMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.37144703249489086,lMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.11974911050742994,lMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4663422163704005,lMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5316292284297415,lMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5822735227621947,lMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.29939280844935434,lMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.18405119338538567,lMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5047940299087585,lMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5399614968909275,lMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5725373766497486,lMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31435258005568584,lMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.16448715939196837,lMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5047464353730761,lMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5402612094694188,lMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5824785554986709,lMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3156381589693138,lMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.16317906246325173,lMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4925258410509019,lMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5476079802197006,lMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5621269963324073,lMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31946172438025583,lMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14417630498369846,lMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.511171340874316,lMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5491634406545478,lMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5777243520662204,lMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3202591342836278,lMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1494809348441397,lMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.48963621751678815,lMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5451998773173858,lNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5659488827900485,lNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31980694912984114,lNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1335528199705993,lNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5121973402976304,lNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5478225248917458,lRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5752967836836822,lRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31952539298299437,lRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15185983615690832,lRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4937268529317627,lRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5466281816090073,lT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5756859641297984,lT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31959560780376595,lT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1537997369141127,lT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49395099976866635,lT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5455625366124078,laRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5765531714091681,laRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31888629430798376,laRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14859045840467794,laRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49616566402429996,laRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5393538954458754,limRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5714225926572106,limRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.32157095685943105,limRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14071355968137708,limRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5092793044043473,limRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5355890708139789,lpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5857777930935887,lpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.327211681616124,lpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15603410707115167,lpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4884614592651907,lpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.543654616292598,rCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5750220448341612,rCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.32003154297413144,rCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15208212810548588,rCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49823703590860285,rCb,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5794089907289397,rMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5365525152958354,rMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.39283061922789864,rMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.11382167461459643,rMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.45730225319490586,rMON,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5337258521203964,rMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5807650470373557,rMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.2973446799194001,rMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1793402215788154,rMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5072197760002514,rMOS1,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5433637254623234,rMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5767753629981276,rMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3173571215908758,rMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.16029460187182198,rMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4956572812704263,rMOS2,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5347743698875999,rMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5845775400245358,rMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3071979593045142,rMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.17419038727858277,rMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4975666747171293,rMOS3,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5490667362753464,rMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.577144323496299,rMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3214316571266927,rMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15040967965305926,rMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.4893758954376384,rMOS4,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.543544251912374,rMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5757918474922815,rMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.31911551041251585,rMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.15343652138149733,rMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.497640351554159,rMOS5,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5429638299542103,rNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5645862818240602,rNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.33473075240848854,rNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1304951451916026,rNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5073055787304209,rNX,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5470312356101994,rRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5742413966233765,rRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3206813474165871,rRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1560630104629843,rRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49377267629459237,rRa,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.543768685729335,rT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.581366934816637,rT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3133440746978813,rT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.16023209146351886,rT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.49241168877175767,rT,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5418049498873992,raRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5900512447841078,raRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3186092533409679,raRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.16040623358515005,raRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.48067131048022227,raRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5446596839325321,rimRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5758895600811338,rimRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.3088722239521151,rimRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.1509142199701017,rimRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.5035075875989972,rimRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCS,-0.5321142502133259,rpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,FCV,0.5697911076477324,rpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Metastability,0.309959093493977,rpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Net TE,0.14037337680387038,rpRF,Hind,
+figure_sc_fc_final_overview,C,leave-one-region-out PLS LV1,FC,Neighbor TE,0.525750124879253,rpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.533300970368714,lOB,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31377353263081253,lOB,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2097535725095285,lOB,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6043515762464057,lOB,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3291600046514154,lOB,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.31551948857403866,lOB,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5608957380241353,lP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.305914582091728,lP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2210884438900097,lP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6251608941801111,lP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2462779142557646,lP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.30241227628198497,lP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5408895124896916,lPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3094422671298395,lPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22183852798885487,lPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5971243666890454,lPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.34378843792602326,lPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.29618184742913845,lPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5588415834914756,lSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3366362369867106,lSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2437577921891062,lSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6135419698386738,lSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.26259258986949374,lSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.26375300993044776,lSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5587305618095707,rP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3068497737848736,rP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2175187936894455,rP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6168884417443996,rP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29971829023048135,rP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2756202949049741,rP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5409276931790638,rPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31423754863163994,rPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2288720150354346,rPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5946667438302135,rPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.34081645860641935,rPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.294083661295428,rPO,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5417101849264571,rSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.33334458083298957,rSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2466801980876124,rSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.610558964854915,rSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3291477948629446,rSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.23121380888656595,rSP,Tel,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5389362560462947,lHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.32118579247719337,lHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2283745465686349,lHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.59739090468157,lHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.31647737663524084,lHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.31176696776756363,lHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5377930909594554,lPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3218893198376856,lPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.23264061087403132,lPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6130150641049373,lPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3094225846518094,lPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.28550726532030196,lPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.54688620257469,lPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31631472588572507,lPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.252801786619577,lPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.596718735360847,lPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.31214302558002194,lPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2888688539014273,lPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5456081448770557,lTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.32108438133109857,lTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22907606969751967,lTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6042108071803789,lTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30085577253048135,lTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3019202398357925,lTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5390750762521288,rHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.29804869642195897,rHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.20204928203432196,rHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6088345730813418,rHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3243604488363275,rHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.32226058742251357,rHb,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5458713131774745,rPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3164132299010578,rPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22845883590698726,rPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6071548795860012,rPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3033270923989345,rPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2984449109990321,rPT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5455890405090309,rPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3223385266877064,rPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.24027589176643102,rPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6018171930338135,rPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30480558137721664,rPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2925877520595802,rPrT,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5414934815329535,rTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31571763574097506,rTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22697370099940292,rTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6078166368331216,rTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30346645882472,rTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.30668740983506404,rTh,Di,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5458754010810705,lTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31708641875380533,lTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22606304487569712,lTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6090003449878292,lTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29788758468934634,lTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.30125291031066814,lTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5459488208611729,lTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.32448080269663404,lTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22902019989404412,lTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6042431879313914,lTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3012588728925954,lTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2972122189011189,lTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5470840248819075,rTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3056435169254102,rTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.21013311396209408,rTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.622555293805857,rTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.27011062002866765,rTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3202972741050157,rTS,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.547738900790669,rTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.325639792397404,rTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2298392131037214,rTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6051139565876351,rTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29678089381594813,rTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2947421905607196,rTeO,Mes,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5465742297229647,lCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31628231021478004,lCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2293380132202806,lCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6042037440642972,lCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30582846638216826,lCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3000549485496608,lCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5562080210608639,lMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.34006171177045497,lMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.24433630344589854,lMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5890100040836376,lMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30058639176498186,lMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2792946051910075,lMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5492177576903576,lMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3232140493625893,lMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22446768334847544,lMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6075109516656698,lMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2928614562038873,lMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.29777408070682093,lMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5450345650674907,lMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31946902568516466,lMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2305851643206135,lMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6091321825003131,lMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29717222731161785,lMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.297244004248623,lMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5405257665324452,lMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31853188502732793,lMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2311034470718677,lMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6089739808314923,lMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2994928256770497,lMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3039987972429678,lMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5406677929488913,lMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31384436567808544,lMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.25359559714354135,lMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5904621224606994,lMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2991679368515078,lMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3266838722810223,lMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5483790943749661,lMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3135348862359379,lMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22483428994356344,lMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6047928314904499,lMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30319461232634703,lMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3045068867285642,lMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5453128970569738,lNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3137767853703642,lNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.21943593857274246,lNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6163995821060936,lNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29813965912447626,lNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.29527976728053,lNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5475114995137726,lRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3198485694748662,lRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.24260780890147876,lRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6084433153704171,lRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2925701335652787,lRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.28856359869487175,lRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5420383160827669,lT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.32049340069792903,lT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22650301524709485,lT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6001075549390678,lT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.307523659431856,lT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.31220978441730884,lT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5385580301444222,laRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.32224794975451804,laRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.24130099566178992,laRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5999763601930496,laRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3057356588636704,laRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3073099585878966,laRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5459196108850229,limRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31820220437344165,limRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.23438267969985693,limRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.607561693081768,limRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29856289583486506,limRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2958257618431097,limRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5467244148861296,lpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3132794298549544,lpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22552266376685035,lpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6055690997808342,lpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3052777972708562,lpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3036107261095396,lpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5540479271805301,rCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.32016901557046884,rCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22914125315114955,rCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5985680049107209,rCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30205602290926953,rCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2974819061411118,rCb,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5597997557778206,rMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3367403860905387,rMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2377727940090566,rMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5875883927946469,rMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30799074435265833,rMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.276723375019012,rMON,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5464562660986394,rMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3132371481570454,rMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2162287515682521,rMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6182532822189262,rMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29252834010303064,rMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2978308488274832,rMOS1,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5382956801638,rMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3087158345045506,rMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.24081554333726893,rMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6426207840299744,rMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2703662568162401,rMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.26623445201213564,rMOS2,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5515011364668085,rMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3093601129094259,rMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22190396928635808,rMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6013475066883897,rMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3057052259320447,rMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.30955926164296715,rMOS3,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5316457699123711,rMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.33252801002410404,rMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2398764010386143,rMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6017236237889604,rMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2896888117298303,rMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.32131959641654756,rMOS4,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5404564383233433,rMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.30687619970150365,rMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.2171264834179767,rMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6080332118063326,rMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30729717792826167,rMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3200843393669133,rMOS5,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5541119585809674,rNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31638963713150764,rNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.20580942494428994,rNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6155175732908638,rNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.2959878739355316,rNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.28987809667290737,rNX,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5418241788848159,rRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3179682388362549,rRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22964205801626178,rRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6082077814672471,rRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3038893354126353,rRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.30053593768861814,rRa,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5453161710861477,rT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31449905117539134,rT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22571625095444964,rT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5998570360728369,rT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30616815465768166,rT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.31496887427841247,rT,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5496659115844452,raRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3330942697474998,raRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.24836586393992063,raRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.5823786299287576,raRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.3099648859723352,raRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.2999781518698615,raRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5494917937728193,rimRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.31800912641515916,rimRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.23465563812101473,rimRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6013735982147951,rimRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.30325483208056275,rimRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.29707237801753905,rimRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Clustering,-0.5508392484538812,rpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Modularity Q,0.3200442752130602,rpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Global Efficiency,-0.22908873531517926,rpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Post-DCA,0.6012508526121983,rpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,Pre-DCA,-0.29798227209843864,rpRF,Hind,
+figure_sc_fc_final_overview,D,leave-one-region-out PLS LV1,SC,log10 (Out/In-deg),0.3022748970158757,rpRF,Hind,
+figure_sc_fc_final_overview,F,linear FCV prediction,SC,Clustering,,,,-0.3129231548270548
+figure_sc_fc_final_overview,F,linear FCV prediction,SC,Modularity Q,,,,-0.05334922477891546
+figure_sc_fc_final_overview,F,linear FCV prediction,SC,Global Efficiency,,,,0.06352016298693448
+figure_sc_fc_final_overview,F,linear FCV prediction,SC,Post-DCA,,,,0.4500037611479911
+figure_sc_fc_final_overview,F,linear FCV prediction,SC,Pre-DCA,,,,-0.027958295230322484
+figure_sc_fc_final_overview,F,linear FCV prediction,SC,log10 (Out/In-deg),,,,0.18797718499256422
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lOB,Tel,-0.280508531009187
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lOB,Tel,-0.024090332391846825
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lOB,Tel,0.084816127119871
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lOB,Tel,0.4508274324606013
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lOB,Tel,-0.040065554737600186
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lOB,Tel,0.20085896339252945
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lP,Tel,-0.34318904142167256
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lP,Tel,-0.07902337865132861
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lP,Tel,0.056452295041280326
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lP,Tel,0.42175456085888746
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lP,Tel,0.06381986026407453
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lP,Tel,0.23878648062792074
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lPO,Tel,-0.3145984612641879
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lPO,Tel,-0.05878468899582903
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lPO,Tel,0.06363390244714319
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lPO,Tel,0.4326453874846046
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lPO,Tel,-0.03890454330298281
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lPO,Tel,0.1868497071789644
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lSP,Tel,-0.3122433937557087
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lSP,Tel,-0.03600013917309526
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lSP,Tel,0.0699374775248603
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lSP,Tel,0.44396283421557725
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lSP,Tel,0.004502351183317568
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lSP,Tel,0.1817230314625152
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rP,Tel,-0.32282452648806886
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rP,Tel,-0.06326568258412493
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rP,Tel,0.06697621264545746
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rP,Tel,0.4359050250171533
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rP,Tel,-0.027370585798228944
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rP,Tel,0.18090959731780543
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rPO,Tel,-0.310634471220686
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rPO,Tel,-0.06403025389804139
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rPO,Tel,0.057195424682826276
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rPO,Tel,0.4272129281387636
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rPO,Tel,-0.05261550715334777
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rPO,Tel,0.18332593677963138
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rSP,Tel,-0.263176213379082
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rSP,Tel,-0.030965607225962727
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rSP,Tel,0.05542666215442376
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rSP,Tel,0.47937332417930784
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rSP,Tel,-0.09516072909738497
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rSP,Tel,0.09624831351539397
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lHb,Di,-0.32196307829834653
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lHb,Di,-0.06186061127759032
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lHb,Di,0.06481938627242398
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lHb,Di,0.4644076056533211
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lHb,Di,-0.022274458362406265
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lHb,Di,0.17830741478449438
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lPT,Di,-0.2961089629982542
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lPT,Di,-0.04459675351619552
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lPT,Di,0.06147268390534808
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lPT,Di,0.4582604275803157
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lPT,Di,-0.03685016289184719
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lPT,Di,0.17693282695690646
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lPrT,Di,-0.3139246547873507
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lPrT,Di,-0.05091836517299822
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lPrT,Di,0.06565435973002767
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lPrT,Di,0.44759522823124215
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lPrT,Di,-0.027242493050293828
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lPrT,Di,0.18834206092439792
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lTh,Di,-0.3058355444711903
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lTh,Di,-0.06859672615063621
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lTh,Di,0.051898235770226425
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lTh,Di,0.4530287036224061
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lTh,Di,-0.027274149628433896
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lTh,Di,0.1960384468531085
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rHb,Di,-0.29980174893565503
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rHb,Di,-0.05801982892222407
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rHb,Di,0.0665691260386991
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rHb,Di,0.4383140016622335
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rHb,Di,-0.03474189611398956
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rHb,Di,0.19720439541317578
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rPT,Di,-0.3122844611804799
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rPT,Di,-0.05336622178962068
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rPT,Di,0.06387862663214881
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rPT,Di,0.44804126268199734
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rPT,Di,-0.02814622662532369
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rPT,Di,0.18670254546590062
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rPrT,Di,-0.30962887730475863
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rPrT,Di,-0.038133049722275714
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rPrT,Di,0.0934229826210947
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rPrT,Di,0.4652769276372915
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rPrT,Di,-0.021043115859515526
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rPrT,Di,0.19261153695446592
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rTh,Di,-0.27926145689390913
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rTh,Di,-0.04443958194533362
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rTh,Di,0.05416095921038235
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rTh,Di,0.462799157294358
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rTh,Di,-0.02643483396626655
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rTh,Di,0.20823184462064712
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lTS,Mes,-0.34507667092781913
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lTS,Mes,-0.10532672977348444
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lTS,Mes,0.037039000286433206
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lTS,Mes,0.4406518306567849
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lTS,Mes,-0.058255103230580633
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lTS,Mes,0.1648453297865531
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lTeO,Mes,-0.31240535981560286
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lTeO,Mes,-0.02567712582716869
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lTeO,Mes,0.08463364410068869
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lTeO,Mes,0.44708062001994514
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lTeO,Mes,-0.032026061898973265
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lTeO,Mes,0.18055028865153808
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rTS,Mes,-0.38961909068452866
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rTS,Mes,0.08223787100993618
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rTS,Mes,0.13590554295919305
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rTS,Mes,0.3934496424236587
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rTS,Mes,-0.019151405636004405
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rTS,Mes,0.22504912069054053
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rTeO,Mes,-0.26834493572954143
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rTeO,Mes,-0.1030303157405043
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rTeO,Mes,0.002632852537880482
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rTeO,Mes,0.4807184626624304
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rTeO,Mes,-0.018440400956683013
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rTeO,Mes,0.21920256490629295
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lCb,Hind,-0.3290741696142996
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lCb,Hind,-0.07042909740710297
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lCb,Hind,0.056519274274842816
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lCb,Hind,0.44024564506843733
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lCb,Hind,-0.034719150177372635
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lCb,Hind,0.1914111394568577
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lMON,Hind,-0.3034116322858331
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lMON,Hind,-0.08137651821193692
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lMON,Hind,0.05381283856168112
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lMON,Hind,0.45405650710615963
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lMON,Hind,-0.052858488896940524
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lMON,Hind,0.18187418973413474
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lMOS1,Hind,-0.30417544596002744
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lMOS1,Hind,-0.02184234785009409
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lMOS1,Hind,0.06727861791755976
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lMOS1,Hind,0.4421405847801287
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lMOS1,Hind,-0.026194559945810686
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lMOS1,Hind,0.19118927983120904
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lMOS2,Hind,-0.30955408519294825
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lMOS2,Hind,-0.05225272512224974
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lMOS2,Hind,0.06325057931493026
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lMOS2,Hind,0.45150443275454105
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lMOS2,Hind,-0.02618006692612808
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lMOS2,Hind,0.1885336560712352
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lMOS3,Hind,-0.2671320646313116
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lMOS3,Hind,-0.02210536754939721
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lMOS3,Hind,0.04676367210905801
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lMOS3,Hind,0.4839468982393242
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lMOS3,Hind,-0.056793659964601756
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lMOS3,Hind,0.13612506527800267
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lMOS4,Hind,-0.30610219596528104
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lMOS4,Hind,-0.12087222024382327
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lMOS4,Hind,-0.020772293552005276
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lMOS4,Hind,0.4497413039644807
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lMOS4,Hind,-0.016270333493879945
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lMOS4,Hind,0.22862352100631972
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lMOS5,Hind,-0.34135484574439445
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lMOS5,Hind,-0.06936384719791248
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lMOS5,Hind,0.07257159156329801
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lMOS5,Hind,0.43817332069350046
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lMOS5,Hind,-0.024960201458236273
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lMOS5,Hind,0.1773013128240316
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lNX,Hind,-0.3052321386082673
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lNX,Hind,0.02538839504951859
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lNX,Hind,0.19437205662684742
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lNX,Hind,0.4897882560912108
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lNX,Hind,-0.022317569025630014
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lNX,Hind,0.16972752280266123
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lRa,Hind,-0.313520010543439
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lRa,Hind,-0.05090860330514112
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lRa,Hind,0.06716176810162207
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lRa,Hind,0.450507243339785
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lRa,Hind,-0.029253325224903624
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lRa,Hind,0.18512972121582885
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lT,Hind,-0.3155820306883663
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lT,Hind,-0.06486692288765603
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lT,Hind,0.0557483226967895
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lT,Hind,0.45328245645335075
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lT,Hind,-0.02966735789984085
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lT,Hind,0.17668881416585605
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,laRF,Hind,-0.3068939955635931
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,laRF,Hind,-0.053386613866287624
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,laRF,Hind,0.05890973968452819
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,laRF,Hind,0.4488706625002439
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,laRF,Hind,-0.028180584133099543
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,laRF,Hind,0.19031446402401814
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,limRF,Hind,-0.31197011739989033
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,limRF,Hind,-0.048098177243103654
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,limRF,Hind,0.06883512571138153
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,limRF,Hind,0.44498712956732955
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,limRF,Hind,-0.02983776301923201
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,limRF,Hind,0.18799751143224025
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,lpRF,Hind,-0.3552900538797626
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,lpRF,Hind,-0.03902086180978476
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,lpRF,Hind,0.11685015689358336
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,lpRF,Hind,0.4497336034113277
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,lpRF,Hind,-0.043792230691392466
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,lpRF,Hind,0.20957941801210236
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rCb,Hind,-0.3331953678070945
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rCb,Hind,-0.055813254938624005
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rCb,Hind,0.07302608816964791
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rCb,Hind,0.43597476829307646
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rCb,Hind,-0.026018523031472233
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rCb,Hind,0.1878179685204237
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rMON,Hind,-0.2983040356390228
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rMON,Hind,-0.07572205244484727
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rMON,Hind,0.04792313152684753
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rMON,Hind,0.4546242391299852
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rMON,Hind,-0.035952673948942006
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rMON,Hind,0.1906997882045041
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rMOS1,Hind,-0.3418738221341376
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rMOS1,Hind,-0.07402554392738311
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rMOS1,Hind,0.07222510600495716
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rMOS1,Hind,0.44699060408618885
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rMOS1,Hind,-0.02414260345220586
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rMOS1,Hind,0.18060246184350695
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rMOS2,Hind,-0.2822518283312168
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rMOS2,Hind,-0.09430908347178184
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rMOS2,Hind,-0.004486896581095639
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rMOS2,Hind,0.50289890653059
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rMOS2,Hind,-0.0006491934263610276
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rMOS2,Hind,0.15028973149493613
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rMOS3,Hind,-0.40039641439376644
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rMOS3,Hind,-0.1830068060729482
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rMOS3,Hind,-0.031998755853513514
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rMOS3,Hind,0.4404589625580882
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rMOS3,Hind,0.002793405112250252
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rMOS3,Hind,0.15812181575933032
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rMOS4,Hind,-0.2294016579359301
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rMOS4,Hind,0.016751362607237197
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rMOS4,Hind,0.0440607777562139
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rMOS4,Hind,0.47031473855957084
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rMOS4,Hind,0.018160834226391465
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rMOS4,Hind,0.24854208467660974
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rMOS5,Hind,-0.3193567151596614
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rMOS5,Hind,-0.08379293876937366
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rMOS5,Hind,0.05857810214473884
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rMOS5,Hind,0.44932089731267033
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rMOS5,Hind,-0.03083816305502154
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rMOS5,Hind,0.2034758869364179
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rNX,Hind,-0.3357085901351504
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rNX,Hind,0.010335090031327501
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rNX,Hind,0.15533193353082322
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rNX,Hind,0.44002097610085084
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rNX,Hind,-0.012582080024159453
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rNX,Hind,0.1717418961470079
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rRa,Hind,-0.30915726910478086
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rRa,Hind,-0.07042644838166874
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rRa,Hind,0.06205490143530505
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rRa,Hind,0.45840617825179214
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rRa,Hind,-0.041586603860663866
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rRa,Hind,0.19461415273745772
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rT,Hind,-0.30270492985456465
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rT,Hind,-0.04625383071978635
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rT,Hind,0.06294215473629407
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rT,Hind,0.46367571662484297
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rT,Hind,-0.03317927515748721
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rT,Hind,0.17191766457104224
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,raRF,Hind,-0.33517989357374534
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,raRF,Hind,-0.04620501265455927
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,raRF,Hind,0.04178968883742444
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,raRF,Hind,0.4185356921110387
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,raRF,Hind,-0.03632112832652954
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,raRF,Hind,0.20177315087007697
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rimRF,Hind,-0.3182373126037554
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rimRF,Hind,-0.058124538427841585
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rimRF,Hind,0.061765397697643866
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rimRF,Hind,0.4332426694198315
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rimRF,Hind,-0.028029182371088104
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rimRF,Hind,0.1912712572386445
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Clustering,,rpRF,Hind,-0.32544244564541625
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Modularity Q,,rpRF,Hind,-0.06038710739037538
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Global Efficiency,,rpRF,Hind,0.06383056363269292
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Post-DCA,,rpRF,Hind,0.4389364656706631
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,Pre-DCA,,rpRF,Hind,-0.028680660335775793
+figure_sc_fc_final_overview,F,leave-one-region-out linear FCV prediction,SC,log10 (Out/In-deg),,rpRF,Hind,0.1960892223977192
