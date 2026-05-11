@@ -1,0 +1,14 @@
+metric,value
+n_full_cells_used_for_measure_calculation,297.0
+n_subset_cells_plotted,122.0
+full_sc_nonzero_edges,3604.0
+full_sc_weight_sum,20484.0
+full_sc_asymmetry_l1,33320.0
+diagonal_removed,1.0
+original_diag_nonzero,34.0
+original_diag_weight_sum,105.0
+final_diag_nonzero,0.0
+final_diag_weight_sum,0.0
+n_subset_nan_PostDCA,0.0
+n_subset_nan_PreDCA,0.0
+n_subset_nan_OO_fraction,0.0

@@ -1,0 +1,2 @@
+dataset,n_recordings,n_atlas_rois,n_right_rois,n_left_rois,n_midline_rois,sampling_rate_hz,window_frames,window_seconds,step_frames,step_seconds,slow_fluctuation_removal,highpass_hz,overlap_fraction,pairwise_average,diagonal
+Turner/Mann/Clandinin branson_responses with Branson999 atlas labels,20,999,438,436,125,1.2,20,16.666666666666668,10,8.333333333333334,linear detrend plus Butterworth high-pass before FC/FCV,0.03,0.5,Each FC/FCV entry is averaged over recordings where both ROIs are present.,set to 0 in final FC and FCV matrices; count diagonal set to n_recordings

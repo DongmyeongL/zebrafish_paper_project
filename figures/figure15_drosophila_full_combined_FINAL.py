@@ -28,10 +28,12 @@ from scipy.signal import detrend as scipy_detrend
 from scipy.stats import kruskal, mannwhitneyu, pearsonr, spearmanr
 
 
-BASE = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+BASE = PROJECT_ROOT / "data" / "figure15_drosophila"
 STANDARD = BASE / "final_results" / "SC_FC_FCV_current_standard"
 BRANSON = BASE / "final_results" / "Branson999_full_FC_FCV"
-FIGS = BASE / "figures"
+FIGS = PROJECT_ROOT / "output" / "png"
+PDFS = PROJECT_ROOT / "output" / "pdf"
 
 SC_ITO48 = STANDARD / "SC_flywire783_ito_R_then_L_matrix_FINAL.csv"
 POSTDCA_BLOCK = STANDARD / "sideaware_cell_PostDCA_block_scores_FINAL.csv"
@@ -45,14 +47,14 @@ FC5_RECORDING = BRANSON / "Branson999_full_ROI_5measure_recording_level_w15_step
 FC5_ROI_SUMMARY = BRANSON / "Branson999_full_ROI_5measure_summary_w15_step5_hp030_FINAL.csv"
 METHOD_STATS = BRANSON / "Branson999_w30_PostDCA_vs_PostDCApositive_method_check_stats_FINAL.csv"
 WEIGHT_BINARY_STATS = BRANSON / "Branson999_w15_step5_hp030_weighted_vs_binary_PostDCApositive_stats_FINAL.csv"
-BRANSON_RESP = BASE / "data" / "raw" / "turner_mann_clandinin" / "data" / "branson_responses"
+BRANSON_RESP = BASE / "raw" / "turner_mann_clandinin" / "data" / "branson_responses"
 REC_FCV_POINTS = BRANSON / "Branson999_w30_matched41_region_FCVz_by_recording_FINAL.csv"
 FC5_SIDEKEY = BRANSON / "Branson999_full_ROI_5measure_sidekey_summary_w15_step5_hp030_FINAL.csv"
 SC_MEASURE_RESULTS = BASE / "results" / "drosophila_flywire783_matched41_sc_cell_measures.csv"
 
 OUT_PNG = FIGS / "figure15_drosophila_full_combined_FINAL.png"
-OUT_PDF = FIGS / "figure15_drosophila_full_combined_FINAL.pdf"
-FINAL_COPY = BRANSON / "figure15_drosophila_full_combined_FINAL.png"
+OUT_PDF = PDFS / "figure15_drosophila_full_combined_FINAL.pdf"
+FINAL_COPY = OUT_PNG
 
 GROUP_ORDER = [
     "olfactory system",
@@ -1197,14 +1199,13 @@ def main() -> None:
     draw_summary_row(fig, outer[1], order)
 
     OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
+    OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.04)
-    #ig.savefig(OUT_PDF, bbox_inches="tight", pad_inches=0.04)
-    fig.savefig(FINAL_COPY, dpi=600, bbox_inches="tight", pad_inches=0.04)
+    fig.savefig(OUT_PDF, bbox_inches="tight", pad_inches=0.04)
     plt.close(fig)
 
     print(f"Saved PNG: {OUT_PNG}")
-    #rint(f"Saved PDF: {OUT_PDF}")
-    print(f"Saved final copy: {FINAL_COPY}")
+    print(f"Saved PDF: {OUT_PDF}")
     print("Final result remembered: w15 step5, 0.03 Hz high-pass, weighted_mean_PostDCA_positive, synapse-count weighted SC, Branson999-first FC measures.")
 
 

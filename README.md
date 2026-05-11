@@ -1,17 +1,43 @@
-# Paper Figure Project
+# Zebrafish Paper Figure Project
 
-This folder is a self-contained figure-reproduction package.  Downloading this
-folder alone should be enough to regenerate the included paper figures.
+This repository is a self-contained figure-reproduction package. Cloning the
+GitHub repository should be enough to regenerate and inspect the bundled paper
+figures without access to the original working directory.
+
+The included data are the precomputed tables, matrices, and compact example
+recordings needed by the plotting scripts. Very large upstream raw archives are
+not required for the default reproduction path.
+
+## Quick Start
+
+```bash
+git clone https://github.com/DongmyeongL/zebrafish_paper_project.git
+cd zebrafish_paper_project
+python3.10 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python figures/figure14_celegans_full_combined_FINAL.py
+python figures/figure15_drosophila_full_combined_FINAL.py
+```
 
 ## Layout
 
 ```text
 paper_project/
-├── data/        # Raw and precomputed data required by the figure scripts
+├── data/        # Bundled raw examples and precomputed data required by scripts
 ├── figures/     # Plotting scripts and shared plotting helpers
 ├── configs/     # Lightweight figure metadata
-├── docs/        # Short notes on figure content and calculations
+├── docs/        # Figure notes and method documentation
 └── output/      # Regenerated PNG/PDF files and statistics tables
+```
+
+Cross-species figure data and documentation are organized as:
+
+```text
+data/figure14_celegans/
+data/figure15_drosophila/
+docs/figure14_celegans/
+docs/figure15_drosophila/
 ```
 
 ## Regenerate Figures
@@ -19,17 +45,20 @@ paper_project/
 Run from the `paper_project` directory:
 
 ```bash
-python3.10 figures/figure9_clean.py
-python3.10 figures/figure12_clean.py
-python3.10 figures/figure13_clean.py
-python3.10 figures/figure_fc_dynamics_final_fc_shift_summary.py
-python3.10 figures/figure_sc_fc_final_overview.py
+python figures/figure9_clean.py
+python figures/figure12_clean.py
+python figures/figure13_clean.py
+python figures/figure14_clean.py
+python figures/figure14_celegans_full_combined_FINAL.py
+python figures/figure15_drosophila_full_combined_FINAL.py
+python figures/figure_fc_dynamics_final_fc_shift_summary.py
+python figures/figure_sc_fc_final_overview.py
 ```
 
 Or run all figures:
 
 ```bash
-python3.10 run_all.py
+python run_all.py
 ```
 
 Outputs are written to:
@@ -47,5 +76,19 @@ available.
 
 ## Notes
 
-The scripts use only paths inside this folder.  External absolute paths from the
-original working directory were replaced by package-relative paths.
+The scripts use only paths inside this repository. External absolute paths from
+the original working directory were replaced by package-relative paths.
+
+For the C. elegans full figure, the original WormWideWeb archive is large, so
+the repository includes the compact high/low example traces needed to reproduce
+the final panel. For the Drosophila full figure, the repository includes the
+precomputed final result tables and the two example Branson recordings used by
+the trace panels.
+
+Expected cross-species outputs:
+
+```text
+output/png/figure14_celegans_full_combined_FINAL.png
+output/png/figure15_drosophila_full_combined_FINAL.png
+output/pdf/figure15_drosophila_full_combined_FINAL.pdf
+```

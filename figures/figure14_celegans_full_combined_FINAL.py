@@ -7,6 +7,7 @@ Main figure: representation panels and clustered SC/FC/FCV summary panels.
 from __future__ import annotations
 
 import logging
+import json
 from pathlib import Path
 import sys
 
@@ -21,22 +22,21 @@ from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 from scipy.stats import pearsonr
 
 
-BASE = Path(__file__).resolve().parents[1]
-ROOT = BASE.parent
-CODE = BASE / "code"
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(CODE))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+BASE = PROJECT_ROOT / "data" / "figure14_celegans"
+FIGURES_DIR = PROJECT_ROOT / "figures"
+sys.path.insert(0, str(FIGURES_DIR))
 
 import figure_style as fs
 import figure14_celegans_combined_horizontal as summary
-import figure14_celegans_fc_measure_heatmap as fc_heat
 import figure14_celegans_representation_timeseries as rep
-import figure14_celegans_sc_measure_heatmap as sc_heat
 
 
-OUT_PNG = BASE / "figures" / "figure14_celegans_full_combined_FINAL.png"
+OUT_PNG = PROJECT_ROOT / "output" / "png" / "figure14_celegans_full_combined_FINAL.png"
 SC_MEASURE_TABLE = BASE / "results" / "figure14_celegans_sc_cell_measures_full297_subset122.csv"
 FC_MEASURE_TABLE = BASE / "results" / "figure14_celegans_fc_spontaneous_5measure_summary.csv"
+REPRESENTATION_CACHE = BASE / "results" / "figure14_celegans_representation_examples.npz"
+REPRESENTATION_META = BASE / "results" / "figure14_celegans_representation_examples.json"
 
 FINAL_CLUSTER_ORDER = ["M1", "M2", "M4", "M3", "M5"]
 PANEL_GHI_LABEL_X = -0.33
@@ -77,6 +77,40 @@ def add_panel_label(ax, label: str, x: float = -0.08, y: float = 1.06) -> None:
     )
 
 
+def zscore_rows(values: np.ndarray) -> np.ndarray:
+    out = values.copy().astype(float)
+    for i in range(out.shape[0]):
+        row = out[i]
+        mask = np.isfinite(row)
+        if mask.sum() < 2:
+            continue
+        sd = np.nanstd(row[mask])
+        if sd > 0:
+            out[i, mask] = (row[mask] - np.nanmean(row[mask])) / sd
+    return np.clip(out, -2.0, 2.0)
+
+
+def orient_linkage_target_left(z_linkage: np.ndarray, labels: np.ndarray, target_label: str) -> np.ndarray:
+    oriented = z_linkage.copy()
+    n = len(labels)
+    target_counts: dict[int, int] = {i: int(labels[i] == target_label) for i in range(n)}
+    leaf_counts: dict[int, int] = {i: 1 for i in range(n)}
+    for row_idx in range(oriented.shape[0]):
+        node_id = n + row_idx
+        left = int(oriented[row_idx, 0])
+        right = int(oriented[row_idx, 1])
+        left_frac = target_counts[left] / max(leaf_counts[left], 1)
+        right_frac = target_counts[right] / max(leaf_counts[right], 1)
+        if target_counts[right] > target_counts[left] or (
+            target_counts[right] == target_counts[left] and right_frac > left_frac
+        ):
+            oriented[row_idx, 0], oriented[row_idx, 1] = oriented[row_idx, 1], oriented[row_idx, 0]
+            left, right = right, left
+        target_counts[node_id] = target_counts[left] + target_counts[right]
+        leaf_counts[node_id] = leaf_counts[left] + leaf_counts[right]
+    return oriented
+
+
 def add_scatter_panel(ax, neurons: pd.DataFrame, label: str) -> None:
     colors = neurons["cluster_label"].map(summary.CLUSTER_COLORS).fillna("#8c8c8c")
     sizes = 13 + 3 * np.sqrt(neurons["n_recordings"].to_numpy())
@@ -104,15 +138,29 @@ def add_scatter_panel(ax, neurons: pd.DataFrame, label: str) -> None:
 
 
 def load_representation_examples() -> tuple[str, dict, dict, dict, dict, pd.DataFrame, pd.DataFrame]:
-    if not rep.ARCHIVE.exists():
-        raise FileNotFoundError(f"Missing WormWideWeb archive: {rep.ARCHIVE}")
-    uid, high_pair, low_pair = rep.choose_examples()
-    label_cache = rep.json.loads(rep.LABEL_CACHE.read_text())
-    data = rep.load_recording(uid)
-    high_example = rep.extract_pair(data, label_cache, uid, high_pair)
-    low_example = rep.extract_pair(data, label_cache, uid, low_pair)
+    if not REPRESENTATION_CACHE.exists() or not REPRESENTATION_META.exists():
+        raise FileNotFoundError(
+            "Missing bundled C. elegans representation cache. "
+            f"Expected {REPRESENTATION_CACHE} and {REPRESENTATION_META}."
+        )
+    arrays = np.load(REPRESENTATION_CACHE)
+    meta = json.loads(REPRESENTATION_META.read_text())
+    high_example = {
+        "pair": meta["high"]["pair"],
+        "time_s": arrays["high_time_s"],
+        "traces": arrays["high_traces"],
+        "corr_t": arrays["high_corr_t"],
+        "corr_values": arrays["high_corr_values"],
+    }
+    low_example = {
+        "pair": meta["low"]["pair"],
+        "time_s": arrays["low_time_s"],
+        "traces": arrays["low_traces"],
+        "corr_t": arrays["low_corr_t"],
+        "corr_values": arrays["low_corr_values"],
+    }
     network_nodes, network_sc = rep.load_network_data()
-    return uid, high_pair, low_pair, high_example, low_example, network_nodes, network_sc
+    return "bundled-cache", high_example["pair"], low_example["pair"], high_example, low_example, network_nodes, network_sc
 
 
 def draw_representation_row(fig, subspec) -> tuple[dict, dict, pd.DataFrame, pd.DataFrame]:
@@ -275,7 +323,7 @@ def draw_measure_panel(
 ) -> None:
     ordered = df.iloc[leaf_order].reset_index(drop=True)
     values = df[measure_cols].to_numpy(float).T
-    z_values = sc_heat.zscore_rows(values)
+    z_values = zscore_rows(values)
     z_ordered = z_values[:, leaf_order]
     n = len(ordered)
 
@@ -331,10 +379,10 @@ def draw_sc_measure_panel(fig, subspec) -> None:
     measure_cols = ["PostDCA", "PreDCA", "Log10_OutInput_degree", "OO_fraction"]
     measure_labels = ["Post-DCA", "Pre-DCA", r"$\log_{10}$ out/in degree", "Output-output motif"]
     values = df[measure_cols].to_numpy(float).T
-    z_values = sc_heat.zscore_rows(values)
+    z_values = zscore_rows(values)
     z_cluster = np.nan_to_num(z_values, nan=0.0, posinf=0.0, neginf=0.0)
     z_linkage = linkage(z_cluster.T, method="ward")
-    z_linkage = sc_heat.orient_linkage_target_left(z_linkage, df["cluster_label"].to_numpy(), "M1")
+    z_linkage = orient_linkage_target_left(z_linkage, df["cluster_label"].to_numpy(), "M1")
     leaf_order = np.asarray(dendrogram(z_linkage, no_plot=True)["leaves"], dtype=int)
     reverse_dendrogram = False
     leaf_clusters = df.iloc[leaf_order]["cluster_label"].to_numpy()
@@ -363,10 +411,10 @@ def draw_fc_measure_panel(fig, subspec) -> None:
     measure_cols = ["FCS_z", "FCV_z", "Metastability", "NetTE_z", "NeighborNetTE_z"]
     measure_labels = ["z-FCS", "z-FCV", "Metasta-\nbility", "Net TE", "Neighbor\nNet TE"]
     values = df[measure_cols].to_numpy(float).T
-    z_values = fc_heat.zscore_rows(values)
+    z_values = zscore_rows(values)
     z_cluster = np.nan_to_num(z_values, nan=0.0, posinf=0.0, neginf=0.0)
     z_linkage = linkage(z_cluster.T, method="ward")
-    z_linkage = fc_heat.orient_linkage_target_left(z_linkage, df["cluster_label"].to_numpy(), "M1")
+    z_linkage = orient_linkage_target_left(z_linkage, df["cluster_label"].to_numpy(), "M1")
     leaf_order = np.asarray(dendrogram(z_linkage, no_plot=True)["leaves"], dtype=int)
     reverse_dendrogram = False
     leaf_clusters = df.iloc[leaf_order]["cluster_label"].to_numpy()

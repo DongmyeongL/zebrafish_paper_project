@@ -1,0 +1,12 @@
+metric,value
+n_confident_cells,119866
+n_inter_region_edges_after_threshold,735710
+syn_threshold,5
+n_cells_with_PostDCA_positive,84594
+n_cells_with_PreDCA,66170
+n_cells_with_OO_fraction,84594
+ito48_regions,48
+matched41_regions,41
+ito48_sc_nonzero,2206
+ito48_sc_asymmetry_l1,62284.0
+analysis_definition,Cell-level within-Ito-region DCA; inter-region weighted Pre/Post-DCA; region summaries by arithmetic mean.

@@ -1,0 +1,3 @@
+example,uid,matrix_fcv,neuron_a,neuron_b,cluster_a,cluster_b,recording_fcv
+high,2023-01-09-15,0.472072647649874,ASIL,RMEL,1,3,0.41056294124903536
+low,2023-01-09-15,0.1321839408428412,RMEV,SMBVR,3,4,0.13218394084284127

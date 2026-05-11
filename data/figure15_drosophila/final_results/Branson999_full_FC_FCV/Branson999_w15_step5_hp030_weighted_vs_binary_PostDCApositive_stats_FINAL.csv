@@ -1,0 +1,9 @@
+method,method_label,subset,n,spearman_rho,spearman_p,pearson_r,pearson_p
+weighted_mean_PostDCA_positive,Synapse-count weighted SC,all,464,0.4885940032017863,3.2637835120965864e-29,0.4379772347827463,3.613612157985455e-23
+weighted_mean_PostDCA_positive,Synapse-count weighted SC,R,272,0.46796019366562047,3.3037839691248736e-16,0.499123700062614,1.5297996610027363e-18
+weighted_mean_PostDCA_positive,Synapse-count weighted SC,L,190,0.551158520218048,1.7232083388250561e-16,0.4279587076879128,7.322591178112964e-10
+weighted_mean_PostDCA_positive,Synapse-count weighted SC,midline,2,,,,
+binary_mean_PostDCA_positive,Binary SC,all,464,-0.08586180150469672,0.06461031098870093,-0.029445068442363914,0.5269344232196762
+binary_mean_PostDCA_positive,Binary SC,R,272,0.04932540702708464,0.41780089527365827,0.07798934175430755,0.19975022825768468
+binary_mean_PostDCA_positive,Binary SC,L,190,-0.22727494500011886,0.0016134317473550954,-0.35043524146092897,7.172789785007303e-07
+binary_mean_PostDCA_positive,Binary SC,midline,2,,,,

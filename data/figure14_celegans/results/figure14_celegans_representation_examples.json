@@ -1,0 +1,22 @@
+{
+  "high": {
+    "pair": {
+      "matrix_fcv": 0.472072647649874,
+      "neuron_a": "ASIL",
+      "neuron_b": "RMEL",
+      "cluster_a": 1,
+      "cluster_b": 3,
+      "recording_fcv": 0.41056294124903536
+    }
+  },
+  "low": {
+    "pair": {
+      "matrix_fcv": 0.1321839408428412,
+      "neuron_a": "RMEV",
+      "neuron_b": "SMBVR",
+      "cluster_a": 3,
+      "cluster_b": 4,
+      "recording_fcv": 0.13218394084284127
+    }
+  }
+}
