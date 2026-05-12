@@ -1,3 +1,4 @@
 __pycache__/
 *.py[cod]
 .DS_Store
+data/figure_supply_11_perm_null_seed0_n100.npz

@@ -53,6 +53,16 @@ python figures/figure14_celegans_full_combined_FINAL.py
 python figures/figure15_drosophila_full_combined_FINAL.py
 python figures/figure_fc_dynamics_final_fc_shift_summary.py
 python figures/figure_sc_fc_final_overview.py
+python figures/figure_supply_0.py
+python figures/figure_supply_1.py
+python figures/figure_supply_2.py
+python figures/figure_supply_5.py
+python figures/figure_supply_10.py
+python figures/figure_supply_11.py
+python figures/figure_supply_13.py
+python figures/figure_supply_14.py
+python figures/figure_supply_15.py
+python figures/figure_supply_16.py
 ```
 
 Or run all figures:
@@ -85,10 +95,17 @@ the final panel. For the Drosophila full figure, the repository includes the
 precomputed final result tables and the two example Branson recordings used by
 the trace panels.
 
+For supplementary figure panels that originally depended on large raw zebrafish
+simulation or activity archives, the repository includes compact precomputed
+inputs under `data/` so the public scripts do not require the original working
+directory.
+
 Expected cross-species outputs:
 
 ```text
 output/png/figure14_celegans_full_combined_FINAL.png
 output/png/figure15_drosophila_full_combined_FINAL.png
 output/pdf/figure15_drosophila_full_combined_FINAL.pdf
+output/png/figure_supply_*.png
+output/pdf/figure_supply_*.pdf
 ```

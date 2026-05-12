@@ -1,0 +1,9 @@
+Analysis,Metric,Value
+Division-controlled partial correlation,partial_r,-0.05747302999224724
+Division-controlled partial correlation,parametric_p,0.7246459487828889
+Division-stratified permutation,n_perm,10000.0
+Division-stratified permutation,p_perm,0.7424257574242575
+Division-only model,R2,0.6714473060933164
+Division-plus-Post-DCA model,R2,0.6725325646536278
+Division-plus-Post-DCA model,Delta_R2,0.0010852585603113862
+Division-plus-Post-DCA model,PostDCA_beta,-0.0476395422694338

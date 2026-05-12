@@ -13,6 +13,16 @@ SCRIPTS = [
     "figure15_drosophila_full_combined_FINAL.py",
     "figure_fc_dynamics_final_fc_shift_summary.py",
     "figure_sc_fc_final_overview.py",
+    "figure_supply_0.py",
+    "figure_supply_1.py",
+    "figure_supply_2.py",
+    "figure_supply_5.py",
+    "figure_supply_10.py",
+    "figure_supply_11.py",
+    "figure_supply_13.py",
+    "figure_supply_14.py",
+    "figure_supply_15.py",
+    "figure_supply_16.py",
 ]
 
 
