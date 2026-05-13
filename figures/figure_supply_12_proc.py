@@ -36,6 +36,14 @@ DIVISION_COLORS = {
     "Mes": fs.division_colors[3],
     "Hind": fs.division_colors[0],
 }
+POST_DCA_LABELS = ("Post-DCA", r"$\mathrm{DCA}_{\mathrm{post}}$")
+
+
+def _post_dca_index(labels):
+    for candidate in POST_DCA_LABELS:
+        if candidate in labels:
+            return labels.index(candidate)
+    raise ValueError("Post-DCA feature label not found")
 
 
 def p_text(p):
@@ -100,7 +108,7 @@ def stratified_permutation(post_dca, fcv, divisions, n_perm=10000, seed=0):
 
 def load_analysis_data():
     regions, divisions, X_fc, X_sc, fc_labels, sc_labels = coupling.align_matrices()
-    post_dca = X_sc[:, sc_labels.index("Post-DCA")]
+    post_dca = X_sc[:, _post_dca_index(sc_labels)]
     fcv = X_fc[:, fc_labels.index("FCV")]
     return regions, divisions, post_dca, fcv
 
@@ -123,7 +131,7 @@ def plot_partial_residual(ax, post_resid, fcv_resid, divisions, r_partial, p_par
     ax.plot(xs, slope * xs + intercept, color="#222222", lw=1.8)
     ax.axhline(0, color="#cccccc", lw=0.8, zorder=0)
     ax.axvline(0, color="#cccccc", lw=0.8, zorder=0)
-    ax.set_xlabel("Post-DCA residual after division")
+    ax.set_xlabel(r"$\mathrm{DCA}_{\mathrm{post}}$ residual after division")
     ax.set_ylabel("FCV residual after division")
     ax.set_title("Division-controlled association")
     ax.text(
@@ -156,7 +164,7 @@ def plot_stratified_null(ax, null_r, observed_r, perm_p):
 
 def plot_model_comparison(ax, model_stats):
     values = [model_stats["division_r2"], model_stats["full_r2"]]
-    labels = ["Division\nonly", "Division +\nPost-DCA"]
+    labels = ["Division\nonly", "Division +\n" + r"$\mathrm{DCA}_{\mathrm{post}}$"]
     ax.bar([0, 1], values, color=["#8c8c8c", "#E45756"], width=0.58)
     ax.plot([0, 1], values, color="#333333", lw=1.2)
     ax.set_xticks([0, 1])

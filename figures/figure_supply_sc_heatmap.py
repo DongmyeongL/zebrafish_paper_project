@@ -103,8 +103,8 @@ def _load_sc_feature_matrix():
         ("Clustering", metrics["clustering_data"]),
         ("Modularity\nQ", metrics["q_data"]),
         ("Global\nEfficiency", metrics["Eglob_data"]),
-        ("Post-DCA", post_dca),
-        ("Pre-DCA", pre_dca),
+        (r"$\mathrm{DCA}_{\mathrm{post}}$", post_dca),
+        (r"$\mathrm{DCA}_{\mathrm{pre}}$", pre_dca),
         ("log10\n(Out/In-deg)", degree_by_region),
     ]
 

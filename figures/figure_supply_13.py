@@ -135,7 +135,7 @@ def main():
     add_panel_labels(axes, ["A", "B", "C", "D"])
 
     cbar = fig.colorbar(im, ax=axes[0], fraction=0.046, pad=0.04)
-    cbar.set_label("Net TE")
+    cbar.set_label(r"$\mathrm{TE}_{\mathrm{net}}$")
     plt.tight_layout()
     fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight")
     fig.savefig(OUT_PDF, bbox_inches="tight")

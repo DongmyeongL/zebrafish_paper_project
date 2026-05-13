@@ -50,7 +50,12 @@ drosophila = _load_module(
 def draw_celegans_sc_measure_panel(fig: plt.Figure, subspec, panel_label: str) -> None:
     df = pd.read_csv(celegans.SC_MEASURE_TABLE)
     measure_cols = ["PostDCA", "PreDCA", "Log10_OutInput_degree", "OO_fraction"]
-    measure_labels = ["Post-DCA", "Pre-DCA", r"$\log_{10}$ out/in degree", "Output-output motif"]
+    measure_labels = [
+        r"$\mathrm{DCA}_{\mathrm{post}}$",
+        r"$\mathrm{DCA}_{\mathrm{pre}}$",
+        r"$\log_{10}$ out/in degree",
+        "Output-output motif",
+    ]
     values = df[measure_cols].to_numpy(float).T
     z_values = celegans.zscore_rows(values)
     z_cluster = np.nan_to_num(z_values, nan=0.0, posinf=0.0, neginf=0.0)
@@ -86,7 +91,13 @@ def draw_celegans_sc_measure_panel(fig: plt.Figure, subspec, panel_label: str) -
 def draw_celegans_fc_measure_panel(fig: plt.Figure, subspec, panel_label: str) -> None:
     df = pd.read_csv(celegans.FC_MEASURE_TABLE)
     measure_cols = ["FCS_z", "FCV_z", "Metastability", "NetTE_z", "NeighborNetTE_z"]
-    measure_labels = ["z-FCS", "z-FCV", "Metasta-\nbility", "Net TE", "Neighbor\nNet TE"]
+    measure_labels = [
+        "z-FCS",
+        "z-FCV",
+        "Metasta-\nbility",
+        r"$\mathrm{TE}_{\mathrm{net}}$",
+        "Neighbor\n" + r"$\mathrm{TE}_{\mathrm{net}}$",
+    ]
     values = df[measure_cols].to_numpy(float).T
     z_values = celegans.zscore_rows(values)
     z_cluster = np.nan_to_num(z_values, nan=0.0, posinf=0.0, neginf=0.0)
@@ -126,7 +137,12 @@ def draw_drosophila_sc_measure_panel(fig: plt.Figure, subspec, panel_label: str)
         subspec,
         sc,
         drosophila.SC_MEASURE_COLS,
-        drosophila.SC_MEASURE_LABELS,
+        [
+            r"$\mathrm{DCA}_{\mathrm{post}}$",
+            r"$\mathrm{DCA}_{\mathrm{pre}}$",
+            "log10 out/in degree",
+            "Output-output motif",
+        ],
         "region",
         "mean_PostDCA_positive",
         panel_label,
@@ -156,7 +172,13 @@ def draw_drosophila_fc_measure_panel(fig: plt.Figure, subspec, panel_label: str)
         subspec,
         fc,
         drosophila.FC_MEASURE_COLS,
-        drosophila.FC_MEASURE_LABELS,
+        [
+            "z-FCS",
+            "z-FCV",
+            "Metastability",
+            r"$\mathrm{TE}_{\mathrm{net}}$",
+            "Neighbor " + r"$\mathrm{TE}_{\mathrm{net}}$",
+        ],
         "side_key",
         "FCV_z",
         panel_label,

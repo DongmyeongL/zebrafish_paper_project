@@ -32,6 +32,20 @@ OUT_PDF = os.path.join(PROJECT_ROOT, "output", "pdf", "figure_supply_11.pdf")
 OUT_DIVISION_CSV = os.path.join(PROJECT_ROOT, "output", "stats", "figure_supply_11_division_control_summary.csv")
 OUT_DIVISION_REGION_CSV = os.path.join(PROJECT_ROOT, "output", "stats", "figure_supply_11_division_control_region_values.csv")
 SC_DISPLAY_LABELS = robust.SC_DISPLAY_LABELS
+SC_PLOT_LABELS = [
+    r"$\mathrm{DCA}_{\mathrm{post}}$" if label == "Post-DCA"
+    else r"$\mathrm{DCA}_{\mathrm{pre}}$" if label == "Pre-DCA"
+    else label
+    for label in SC_DISPLAY_LABELS
+]
+POST_DCA_LABELS = ("Post-DCA", r"$\mathrm{DCA}_{\mathrm{post}}$")
+
+
+def _post_dca_index(labels):
+    for candidate in POST_DCA_LABELS:
+        if candidate in labels:
+            return labels.index(candidate)
+    raise ValueError("Post-DCA feature label not found")
 
 
 def permutation_cache_path(n_perm, seed):
@@ -80,7 +94,7 @@ def build_robustness_results(n_perm, seed, refresh_null=False):
 
 def build_replication_results():
     regions, divisions, X_fc, X_sc, fc_labels, sc_labels = coupling.align_matrices()
-    post_dca = X_sc[:, sc_labels.index("Post-DCA")]
+    post_dca = X_sc[:, _post_dca_index(sc_labels)]
     subject_fcv = repl.load_subject_fcv_matrix(regions)
     corr_df = repl.subject_correlation_table(regions, divisions, post_dca, subject_fcv)
     loao_df, pred_matrix = repl.leave_one_animal_out(X_sc, subject_fcv)
@@ -147,11 +161,11 @@ def plot_permutation_null(ax, results, n_perm):
 
 def plot_drop_one(ax, drop_df):
     drop_vals = drop_df["Delta_CV_R2"].values
-    drop_colors = ["#E45756" if f == "Post-DCA" else "#8c8c8c" for f in SC_DISPLAY_LABELS]
+    drop_colors = ["#E45756" if f in POST_DCA_LABELS else "#8c8c8c" for f in SC_DISPLAY_LABELS]
     ax.barh(np.arange(len(SC_DISPLAY_LABELS)), drop_vals, color=drop_colors)
     ax.axvline(0, color="#bbbbbb", lw=1)
     ax.set_yticks(np.arange(len(SC_DISPLAY_LABELS)))
-    ax.set_yticklabels(SC_DISPLAY_LABELS)
+    ax.set_yticklabels(SC_PLOT_LABELS)
     ax.invert_yaxis()
     ax.set_title("Drop-one linear CV")
     ax.set_xlabel("Delta R2 after removal")

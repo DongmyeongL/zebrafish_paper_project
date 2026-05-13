@@ -8,8 +8,11 @@ from __future__ import annotations
 
 import logging
 import json
+import os
 from pathlib import Path
 import sys
+
+os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
 import matplotlib
 
@@ -31,6 +34,13 @@ import figure_style as fs
 import figure14_celegans_combined_horizontal as summary
 import figure14_celegans_representation_timeseries as rep
 
+# Workflow:
+# 1. Data loading and plotting calculations.
+# 2. Layout preparation.
+# 3. Draw each panel group.
+# 4. Panel position adjustment and panel labels.
+# 5. Save figure.
+
 
 OUT_PNG = PROJECT_ROOT / "output" / "png" / "figure14_celegans_full_combined_FINAL.png"
 SC_MEASURE_TABLE = BASE / "results" / "figure14_celegans_sc_cell_measures_full297_subset122.csv"
@@ -39,9 +49,18 @@ REPRESENTATION_CACHE = BASE / "results" / "figure14_celegans_representation_exam
 REPRESENTATION_META = BASE / "results" / "figure14_celegans_representation_examples.json"
 
 FINAL_CLUSTER_ORDER = ["M1", "M2", "M4", "M3", "M5"]
-PANEL_GHI_LABEL_X = -0.33
+PANEL_GHI_LABEL_X = -0.14
 PANEL_GHI_LABEL_Y = 1.08
+PANEL_A_SHIFT_X = 0.018
+PANEL_D_SHIFT_X = -0.018
+PANEL_EF_SHIFT_X = -0.018
+PANEL_GHI_WIDTH_SCALE = 0.82
+PANEL_H_SHIFT_X = 0.013
+DCA_POST_LABEL = r"$\mathrm{DCA}_{\mathrm{post}}$"
+DCA_PRE_LABEL = r"$\mathrm{DCA}_{\mathrm{pre}}$"
 
+
+# 1. Data loading and plotting calculations
 
 def configure_shared_style() -> None:
     logging.basicConfig(level=logging.WARNING, force=True)
@@ -64,7 +83,7 @@ def configure_shared_style() -> None:
     rep.CLUSTER_ORDER = FINAL_CLUSTER_ORDER
 
 
-def add_panel_label(ax, label: str, x: float = -0.08, y: float = 1.06) -> None:
+def add_panel_label(ax, label: str, x: float = -0.14, y: float = 1.08) -> None:
     ax.text(
         x,
         y,
@@ -75,6 +94,13 @@ def add_panel_label(ax, label: str, x: float = -0.08, y: float = 1.06) -> None:
         va="bottom",
         ha="right",
     )
+
+
+def replace_panel_label(ax, label: str, x: float = -0.14, y: float = 1.08) -> None:
+    for text in list(ax.texts):
+        if text.get_text() == label and text.get_transform() == ax.transAxes:
+            text.remove()
+    add_panel_label(ax, label, x=x, y=y)
 
 
 def zscore_rows(values: np.ndarray) -> np.ndarray:
@@ -130,7 +156,7 @@ def add_scatter_panel(ax, neurons: pd.DataFrame, label: str) -> None:
     ax.text(0.05, 0.95, f"r={r:.2f}\np={p:.2g}", transform=ax.transAxes, va="top", fontsize=7)
     ax.axhline(0, color="#777777", lw=0.6, alpha=0.35, zorder=0)
     ax.axvline(0, color="#777777", lw=0.6, alpha=0.35, zorder=0)
-    ax.set_xlabel("Post-DCA")
+    ax.set_xlabel(DCA_POST_LABEL)
     ax.set_ylabel("zFCV")
     ax.tick_params(axis="both", which="both", direction="out", bottom=True, left=True, length=3.2, width=1.0)
     ax.spines[["top", "right"]].set_visible(False)
@@ -163,6 +189,46 @@ def load_representation_examples() -> tuple[str, dict, dict, dict, dict, pd.Data
     return "bundled-cache", high_example["pair"], low_example["pair"], high_example, low_example, network_nodes, network_sc
 
 
+def prepare_plot_data() -> dict:
+    configure_shared_style()
+    return {}
+
+
+# 2. Layout preparation
+
+def prepare_layout() -> tuple[plt.Figure, dict]:
+    # Left block: A network, with B/C examples directly below it.
+    # Right block: equal-size E/D/G and F/H/I panels.
+    fig = plt.figure(figsize=(16.0, 5))
+    grid = fig.add_gridspec(
+        2,
+        4,
+        left=0.045,
+        right=0.985,
+        top=0.945,
+        bottom=0.085,
+        width_ratios=[1.98, 1.0, 1.0, 1.0],
+        height_ratios=[1.0, 1.0],
+        hspace=0.30,
+        wspace=0.20,
+    )
+    example_grid = grid[1, 0].subgridspec(1, 2, wspace=0.32)
+    return fig, {
+        "network": grid[0, 0],
+        "fc_matrix": grid[0, 1],
+        "sc_matrix": grid[0, 2],
+        "scatter": grid[0, 3],
+        "high_example": example_grid[0, 0],
+        "low_example": example_grid[0, 1],
+        "fcv_matrix": grid[1, 1],
+        "fcv_box": grid[1, 2],
+        "postdca_box": grid[1, 3],
+    }
+
+
+# 3. Draw each panel group
+
+
 def draw_representation_row(fig, subspec) -> tuple[dict, dict, pd.DataFrame, pd.DataFrame]:
     _, _, _, high_example, low_example, network_nodes, network_sc = load_representation_examples()
     gs = subspec.subgridspec(
@@ -187,10 +253,20 @@ def draw_representation_row(fig, subspec) -> tuple[dict, dict, pd.DataFrame, pd.
     ax_high_trace.set_title("High FCV", fontsize=9, pad=2)
     ax_low_trace.set_title("Low FCV", fontsize=9, pad=2)
 
-    add_panel_label(ax_network, "A", x=-0.06, y=1.02)
-    add_panel_label(ax_high_trace, "B", x=-0.12, y=1.02)
-    add_panel_label(ax_low_trace, "C", x=-0.12, y=1.02)
+    add_panel_label(ax_network, "A")
+    add_panel_label(ax_high_trace, "B")
+    add_panel_label(ax_low_trace, "C")
     return high_example, low_example, network_nodes, network_sc
+
+
+def draw_example_column(fig, subspec, example: dict, title: str, panel_label: str, kind: str) -> None:
+    gs = subspec.subgridspec(2, 1, height_ratios=[1.35, 0.8], hspace=0.18)
+    ax_trace = fig.add_subplot(gs[0, 0])
+    ax_corr = fig.add_subplot(gs[1, 0])
+    rep.add_trace_panel(ax_trace, example, kind)
+    rep.add_corr_panel(ax_corr, example, kind)
+    ax_trace.set_title(title, fontsize=9, pad=2)
+    add_panel_label(ax_trace, panel_label)
 
 
 def draw_summary_row(fig, subspec) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -215,13 +291,13 @@ def draw_summary_row(fig, subspec) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
     axes = [fig.add_subplot(gs[0, i]) for i in range(6)]
 
     matrix_cbars = []
-    matrix_cbars.append(summary.add_matrix_panel(fig, axes[0], sc, "magma", "D", "SC", boundaries, cluster_ticks, cluster_labels))
+    matrix_cbars.append(summary.add_matrix_panel(fig, axes[0], sc, "magma", "E", "SC", boundaries, cluster_ticks, cluster_labels))
     matrix_cbars.append(summary.add_matrix_panel(
         fig,
         axes[1],
         fc,
         "coolwarm",
-        "E",
+        "D",
         "FC",
         boundaries,
         cluster_ticks,
@@ -237,7 +313,7 @@ def draw_summary_row(fig, subspec) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
         axes[2],
         fcv,
         "coolwarm",
-        "F",
+        "G",
         "FCV",
         boundaries,
         cluster_ticks,
@@ -246,10 +322,12 @@ def draw_summary_row(fig, subspec) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
         boundary_bg_lw=1.2,
         boundary_color="#00843d",
     ))
-    add_scatter_panel(axes[3], scatter_neurons, "G")
+    add_scatter_panel(axes[3], scatter_neurons, "F")
     summary.add_box_panel(axes[4], recording_points, "FCV_z", "zFCV", "H", rasterized=True)
+    replace_panel_label(axes[4], "H")
     axes[4].set_ylim(top=5.0)
-    summary.add_box_panel(axes[5], neurons, "PostDCA", "Post-DCA", "I")
+    summary.add_box_panel(axes[5], neurons, "PostDCA", DCA_POST_LABEL, "I")
+    replace_panel_label(axes[5], "I")
 
     fig.canvas.draw()
     for ax, cbar in zip(axes[:3], matrix_cbars):
@@ -260,6 +338,94 @@ def draw_summary_row(fig, subspec) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
     summary.shrink_panel_widths(axes[3:], scale=0.8)
     pos_g = axes[3].get_position()
     axes[3].set_position([pos_g.x0 + 0.0130, pos_g.y0, pos_g.width, pos_g.height])
+    return neurons, scatter_neurons, recording_points
+
+
+def draw_summary_grid(fig, layout: dict) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    neurons, scatter_neurons, recording_points = summary.load_panel_data()
+    neuron_order = neurons["neuron"].tolist()
+    boundaries = summary.cluster_boundaries(neurons)
+    cluster_ticks, cluster_labels = summary.cluster_tick_positions(neurons)
+
+    sc = np.log1p(summary.ordered_matrix(summary.SC_MATRIX, neuron_order).to_numpy())
+    fc = summary.ordered_matrix(summary.FC_MATRIX_SPONT, neuron_order).to_numpy()
+    fcv = summary.ordered_matrix(summary.FCV_MATRIX_SPONT, neuron_order).to_numpy()
+    np.fill_diagonal(fc, 0.0)
+    np.fill_diagonal(fcv, 0.0)
+    fc_lim = np.nanpercentile(np.abs(fc), 98)
+
+    ax_sc = fig.add_subplot(layout["sc_matrix"])
+    ax_fc = fig.add_subplot(layout["fc_matrix"])
+    ax_fcv = fig.add_subplot(layout["fcv_matrix"])
+    ax_g = fig.add_subplot(layout["scatter"])
+    ax_h = fig.add_subplot(layout["fcv_box"])
+    ax_i = fig.add_subplot(layout["postdca_box"])
+
+    matrix_cbars = [
+        summary.add_matrix_panel(fig, ax_sc, sc, "magma", "E", "SC", boundaries, cluster_ticks, cluster_labels),
+        summary.add_matrix_panel(
+            fig,
+            ax_fc,
+            fc,
+            "coolwarm",
+            "D",
+            "FC",
+            boundaries,
+            cluster_ticks,
+            cluster_labels,
+            vmin=-fc_lim,
+            vmax=fc_lim,
+            boundary_lw=0.55,
+            boundary_bg_lw=1.2,
+            boundary_color="#00843d",
+        ),
+        summary.add_matrix_panel(
+            fig,
+            ax_fcv,
+            fcv,
+            "coolwarm",
+            "G",
+            "FCV",
+            boundaries,
+            cluster_ticks,
+            cluster_labels,
+            boundary_lw=0.55,
+            boundary_bg_lw=1.2,
+            boundary_color="#00843d",
+        ),
+    ]
+    add_scatter_panel(ax_g, scatter_neurons, "F")
+    summary.add_box_panel(ax_h, recording_points, "FCV_z", "zFCV", "H", rasterized=True)
+    replace_panel_label(ax_h, "H")
+    ax_h.set_ylim(-3.0, 6.7)
+    summary.add_box_panel(ax_i, neurons, "PostDCA", DCA_POST_LABEL, "I")
+    replace_panel_label(ax_i, "I")
+    ax_i.set_ylim(-0.24, 0.19)
+
+    fig.canvas.draw()
+    for ax, cbar in zip([ax_sc, ax_fc, ax_fcv], matrix_cbars):
+        ax_pos = ax.get_position()
+        cbar_pos = cbar.ax.get_position()
+        cbar.ax.set_position([cbar_pos.x0 - 0.001, ax_pos.y0, cbar_pos.width, ax_pos.height])
+    ax_pos = ax_sc.get_position()
+    cbar_pos = matrix_cbars[0].ax.get_position()
+    ax_sc.set_position([ax_pos.x0 + PANEL_D_SHIFT_X, ax_pos.y0, ax_pos.width, ax_pos.height])
+    matrix_cbars[0].ax.set_position([
+        cbar_pos.x0 + PANEL_D_SHIFT_X,
+        cbar_pos.y0,
+        cbar_pos.width,
+        cbar_pos.height,
+    ])
+    for ax, cbar in [(ax_fc, matrix_cbars[1]), (ax_fcv, matrix_cbars[2])]:
+        ax_pos = ax.get_position()
+        cbar_pos = cbar.ax.get_position()
+        ax.set_position([ax_pos.x0 + PANEL_EF_SHIFT_X, ax_pos.y0, ax_pos.width, ax_pos.height])
+        cbar.ax.set_position([cbar_pos.x0 + PANEL_EF_SHIFT_X, cbar_pos.y0, cbar_pos.width, cbar_pos.height])
+    for ax in [ax_g, ax_h, ax_i]:
+        pos = ax.get_position()
+        ax.set_position([pos.x0, pos.y0, pos.width * PANEL_GHI_WIDTH_SCALE, pos.height])
+    pos = ax_h.get_position()
+    ax_h.set_position([pos.x0 + PANEL_H_SHIFT_X, pos.y0, pos.width, pos.height])
     return neurons, scatter_neurons, recording_points
 
 
@@ -377,7 +543,7 @@ def draw_measure_panel(
 def draw_sc_measure_panel(fig, subspec) -> None:
     df = pd.read_csv(SC_MEASURE_TABLE)
     measure_cols = ["PostDCA", "PreDCA", "Log10_OutInput_degree", "OO_fraction"]
-    measure_labels = ["Post-DCA", "Pre-DCA", r"$\log_{10}$ out/in degree", "Output-output motif"]
+    measure_labels = [DCA_POST_LABEL, DCA_PRE_LABEL, r"$\log_{10}$ out/in degree", "Output-output motif"]
     values = df[measure_cols].to_numpy(float).T
     z_values = zscore_rows(values)
     z_cluster = np.nan_to_num(z_values, nan=0.0, posinf=0.0, neginf=0.0)
@@ -444,17 +610,48 @@ def draw_measure_heatmap_row(fig, subspec) -> None:
     draw_fc_measure_panel(fig, gs[0, 1])
 
 
-def main() -> None:
-    configure_shared_style()
-    fig = plt.figure(figsize=(16.0, 7.35))
-    outer = fig.add_gridspec(2, 1, height_ratios=[1.02, 1.05], hspace=0.18)
+def draw_all_panels(fig, layout: dict, plot_data: dict) -> dict:
+    _, _, _, high_example, low_example, network_nodes, network_sc = load_representation_examples()
+    ax_network = fig.add_subplot(layout["network"])
+    rep.add_network_panel(ax_network, network_nodes, network_sc, high_example, low_example)
+    pos = ax_network.get_position()
+    ax_network.set_position([pos.x0 + PANEL_A_SHIFT_X, pos.y0, pos.width, pos.height])
+    add_panel_label(ax_network, "A",x=-0.115)
+    draw_example_column(fig, layout["high_example"], high_example, "High FCV", "B", "high")
+    draw_example_column(fig, layout["low_example"], low_example, "Low FCV", "C", "low")
+    neurons, scatter_neurons, recording_points = draw_summary_grid(fig, layout)
+    return {
+        "high_example": high_example,
+        "low_example": low_example,
+        "network_nodes": network_nodes,
+        "network_sc": network_sc,
+        "neurons": neurons,
+        "scatter_neurons": scatter_neurons,
+        "recording_points": recording_points,
+    }
 
-    high_example, low_example, network_nodes, network_sc = draw_representation_row(fig, outer[0])
-    neurons, scatter_neurons, recording_points = draw_summary_row(fig, outer[1])
 
+# 4. Panel position adjustment and panel labels
+
+def adjust_panel_positions_and_labels(fig, draw_data: dict) -> None:
+    fig.canvas.draw()
+
+
+# 5. Save figure
+
+def save_figure(fig: plt.Figure) -> None:
     OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.04)
-    plt.close(fig)
+    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.04,transparent=True)
+
+
+def print_summary(draw_data: dict) -> None:
+    high_example = draw_data["high_example"]
+    low_example = draw_data["low_example"]
+    network_nodes = draw_data["network_nodes"]
+    network_sc = draw_data["network_sc"]
+    neurons = draw_data["neurons"]
+    scatter_neurons = draw_data["scatter_neurons"]
+    recording_points = draw_data["recording_points"]
 
     print(f"Saved PNG: {OUT_PNG}")
     print(f"Network nodes={len(network_nodes)}, edges={(network_sc.to_numpy() > 0).sum()}")
@@ -471,6 +668,16 @@ def main() -> None:
         f"recording FCV={low_example['pair']['recording_fcv']:.3f}"
     )
     print(f"Summary neurons={len(neurons)}, E points={len(recording_points)}, D neurons={len(scatter_neurons)}")
+
+
+def main() -> None:
+    plot_data = prepare_plot_data()
+    fig, layout = prepare_layout()
+    draw_data = draw_all_panels(fig, layout, plot_data)
+    adjust_panel_positions_and_labels(fig, draw_data)
+    save_figure(fig)
+    plt.close(fig)
+    print_summary(draw_data)
 
 
 if __name__ == "__main__":

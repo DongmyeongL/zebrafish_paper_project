@@ -4,13 +4,16 @@ Full Drosophila Figure 15 combined panel.
 Final working result:
   - FlyWire783 cell-level weighted directed SC.
   - Branson999 full ROI FC/FCV, window=30 frames, step=8 frames.
-  - Main association: mean Post-DCA+ versus FCV_z excluding same side-aware block.
+  - Main association: mean DCA_post versus FCV_z excluding same side-aware block.
 """
 
 from __future__ import annotations
 
 import hashlib
+import os
 from pathlib import Path
+
+os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
 import matplotlib
 
@@ -26,6 +29,13 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.signal import butter, sosfiltfilt
 from scipy.signal import detrend as scipy_detrend
 from scipy.stats import kruskal, mannwhitneyu, pearsonr, spearmanr
+
+# Workflow:
+# 1. Data loading and plotting calculations.
+# 2. Layout preparation.
+# 3. Draw each panel group.
+# 4. Panel position adjustment and panel labels.
+# 5. Save figure.
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -90,14 +100,21 @@ SC_MEASURE_COLS = [
     "mean_OO_fraction",
 ]
 SC_MEASURE_LABELS = [
-    "Post-DCA+",
-    "Pre-DCA+",
+    r"$\mathrm{DCA}_{\mathrm{post}}$",
+    r"$\mathrm{DCA}_{\mathrm{pre}}$",
     "log10 out/in degree",
     "Output-output motif",
 ]
 
 FC_MEASURE_COLS = ["FCS_z", "FCV_z", "Metastability", "NetTE_z", "NeighborNetTE_z"]
 FC_MEASURE_LABELS = ["z-FCS", "z-FCV", "Metastability", "Net TE", "Neighbor Net TE"]
+DCA_POST_LABEL = r"$\mathrm{DCA}_{\mathrm{post}}$"
+DCA_PRE_LABEL = r"$\mathrm{DCA}_{\mathrm{pre}}$"
+PANEL_A_SHIFT_X = 0.018
+PANEL_D_SHIFT_X = -0.018
+PANEL_EF_SHIFT_X = -0.018
+PANEL_GHI_WIDTH_SCALE = 0.82
+PANEL_H_SHIFT_X = -0.005
 TRACE_EXAMPLE_DATE = "2018-11-03"
 TRACE_HIGH_RECORDING = "2018-11-03_3"
 TRACE_LOW_RECORDING = "2018-11-03_4"
@@ -113,6 +130,8 @@ TRACE_PAIR_COLORS = {
     "low": ("#59a14f", "#e15759"),
 }
 
+
+# 1. Data loading and plotting calculations
 
 def set_style() -> None:
     plt.rcParams.update(
@@ -130,7 +149,7 @@ def set_style() -> None:
     )
 
 
-def label(ax: plt.Axes, text: str, x: float = -0.10, y: float = 1.06) -> None:
+def label(ax: plt.Axes, text: str, x: float = -0.14, y: float = 1.08) -> None:
     ax.text(x, y, text, transform=ax.transAxes, ha="right", va="bottom", fontsize=13, fontweight="bold")
 
 
@@ -633,6 +652,16 @@ def choose_trace_examples() -> tuple[dict, dict]:
     raise RuntimeError("Could not find high and low Branson999 examples from separate recordings on the same date.")
 
 
+def prepare_plot_data() -> dict:
+    set_style()
+    return {
+        "order": pd.read_csv(ORDER_999),
+    }
+
+
+# Plotting helpers
+
+
 def draw_sc_matrix(fig: plt.Figure, ax: plt.Axes, panel: str = "A") -> None:
     nodes = matched_node_table()
     sc = aggregate_sc_to_matched_nodes(nodes)
@@ -653,9 +682,9 @@ def draw_postdca_bar(ax: plt.Axes) -> None:
     for idx in range(1, len(df)):
         if df.loc[idx, "side"] != df.loc[idx - 1, "side"]:
             ax.axvline(idx - 0.5, color="black", lw=1.0)
-    ax.set_ylabel("Mean Post-DCA+")
+    ax.set_ylabel(f"Mean {DCA_POST_LABEL}")
     ax.set_xlabel("FlyWire side-aware blocks")
-    ax.set_title("Weighted cell-level Post-DCA+", fontsize=8, pad=4)
+    ax.set_title(f"Weighted cell-level {DCA_POST_LABEL}", fontsize=8, pad=4)
     ax.set_xticks(x[::2], df["side_key"].iloc[::2], rotation=90, fontsize=5.6)
     style_open_axes(ax)
     label(ax, "B", x=-0.08)
@@ -768,7 +797,7 @@ def draw_ito48_network(ax: plt.Axes) -> None:
     ax.text(
         0.42,
         arrow_y - 0.24,
-        "Post-DCA+",
+        DCA_POST_LABEL,
         ha="left",
         va="top",
         fontsize=9,
@@ -778,13 +807,14 @@ def draw_ito48_network(ax: plt.Axes) -> None:
     ax.tick_params(axis="x", bottom=False, labelbottom=False)
     ax.tick_params(axis="y", length=0)
     ax.spines[["top", "right", "bottom", "left"]].set_visible(False)
-    label(ax, "A", x=-0.04, y=1.02)
+    label(ax, "A")
 
 
 def draw_trace_panel(ax: plt.Axes, ex: dict, panel: str, kind: str) -> None:
     t = np.arange(len(ex["trace_a"])) / TRACE_SAMPLING_RATE_HZ
     start = int(ex.get("display_start", 0))
     stop = int(ex.get("display_stop", min(len(t), 900)))
+    duration = (stop - start) / TRACE_SAMPLING_RATE_HZ
     tt = t[start:stop] - t[start]
     colors = TRACE_PAIR_COLORS[kind]
     offsets = [1.45, -1.45]
@@ -792,7 +822,7 @@ def draw_trace_panel(ax: plt.Axes, ex: dict, panel: str, kind: str) -> None:
     traces = [ex["trace_a"][start:stop], ex["trace_b"][start:stop]]
     for name, color, offset, trace in zip(labels, colors, offsets, traces):
         ax.plot(tt, trace + offset, color=color, lw=0.75)
-        ax.text(tt[-1] + 8, offset, name, color=color, va="center", fontsize=8)
+        ax.text(duration * 0.985, offset, name, color=color, va="center", ha="right", fontsize=8)
     ax.set_title(ex["tag"], fontsize=9, pad=2)
     ax.axis("off")
     ax.axvline(tt[-1], color="#999999", lw=0.7, ls=":")
@@ -800,13 +830,14 @@ def draw_trace_panel(ax: plt.Axes, ex: dict, panel: str, kind: str) -> None:
     ax.set_ylabel("Calcium\nz-score", fontsize=8)
     ax.spines[["top", "right", "left"]].set_visible(False)
     ax.tick_params(axis="x", bottom=False, labelbottom=False)
-    ax.set_xlim(tt[0], tt[-1] + 55)
-    label(ax, panel, x=-0.12, y=1.08)
+    ax.set_xlim(0, duration)
+    label(ax, panel)
 
 
 def draw_corr_panel(ax: plt.Axes, ex: dict, panel: str | None = None) -> None:
     start = int(ex.get("display_start", 0))
     stop = int(ex.get("display_stop", len(ex["trace_a"])))
+    duration = (stop - start) / TRACE_SAMPLING_RATE_HZ
     centers = np.asarray(ex["centers"], dtype=float)
     corr = np.asarray(ex["corr"], dtype=float)
     keep = (centers >= start) & (centers <= stop)
@@ -814,9 +845,11 @@ def draw_corr_panel(ax: plt.Axes, ex: dict, panel: str | None = None) -> None:
     ax.plot(t, corr[keep], color="#222222", lw=1.0)
     ax.axhline(0, color="#777777", lw=0.6, alpha=0.45)
     ax.set_ylim(-1.05, 1.05)
-    ax.set_xlim(0, (stop - start) / TRACE_SAMPLING_RATE_HZ + 55)
+    ax.set_xlim(0, duration)
+    ax.set_xticks([0, 100, 200, duration])
     ax.set_xlabel("Time(s)", fontsize=8)
     ax.set_ylabel("FC", fontsize=8)
+    '''
     ax.text(
         0.04,
         0.08,
@@ -826,6 +859,7 @@ def draw_corr_panel(ax: plt.Axes, ex: dict, panel: str | None = None) -> None:
         va="bottom",
         fontsize=7,
     )
+    '''
     ax.tick_params(axis="both", labelsize=7, length=2.5)
     ax.spines[["top", "right"]].set_visible(False)
     if panel is not None:
@@ -866,10 +900,12 @@ def draw_fcv_matrix(fig: plt.Figure, ax: plt.Axes, order: pd.DataFrame, panel: s
     nodes = matched_node_table()
     fcv_df = aggregate_999_matrix_to_matched_nodes(FCV_999, nodes)
     fcv = fcv_df.to_numpy(dtype=float)
-    return add_heatmap(fig, ax, fcv, "FCV", "coolwarm", panel, vmin=0.2, vmax=0.3)
+    finite_nonzero = fcv[np.isfinite(fcv) & (fcv != 0)]
+    vmin, vmax = np.nanpercentile(finite_nonzero, [2, 98])
+    return add_heatmap(fig, ax, fcv, "FCV", "coolwarm", panel, vmin=vmin, vmax=vmax)
 
 
-def draw_best_scatter(ax: plt.Axes) -> None:
+def draw_best_scatter(ax: plt.Axes, panel: str = "G") -> None:
     y_col = "mean_FCV_excl_same_side_key_z"
     df = pd.read_csv(SCATTER_SCORES).dropna(subset=["weighted_mean_PostDCA_positive", y_col])
     for group in GROUP_ORDER:
@@ -896,7 +932,7 @@ def draw_best_scatter(ax: plt.Axes) -> None:
     ax.text(
         0.4,
         0.2,
-        f"rho={sp.statistic:.2f}, p={sp.pvalue:.2g}\n"
+        #f"rho={sp.statistic:.2f}, p={sp.pvalue:.2g}\n"
         f"r={pr.statistic:.2f}, p={pr.pvalue:.2g}",
         transform=ax.transAxes,
         ha="left",
@@ -905,10 +941,10 @@ def draw_best_scatter(ax: plt.Axes) -> None:
     )
     ax.axhline(0, color="#777777", lw=0.6, alpha=0.35, zorder=0)
     ax.axvline(0, color="#777777", lw=0.6, alpha=0.35, zorder=0)
-    ax.set_xlabel("Weighted mean Post-DCA+")
+    ax.set_xlabel(f"{DCA_POST_LABEL}")
     ax.set_ylabel("zFCV")
     style_open_axes(ax)
-    label(ax, "G", x=-0.10)
+    label(ax, panel)
 
 
 def draw_group_box_panel(
@@ -931,15 +967,16 @@ def draw_group_box_panel(
         widths=0.45,
         patch_artist=True,
         showfliers=False,
-        medianprops={"color": "black", "lw": 1.0},
-        whiskerprops={"color": "0.35", "lw": 1.0},
-        capprops={"color": "0.35", "lw": 1.0},
+        medianprops={"color": "black", "lw": 1.0, "zorder": 3},
+        whiskerprops={"color": "0.35", "lw": 1.0, "zorder": 2},
+        capprops={"color": "0.35", "lw": 1.0, "zorder": 2},
     )
     for patch, group in zip(bp["boxes"], GROUP_ORDER):
         patch.set_facecolor(GROUP_COLORS[group])
         patch.set_alpha(1.0)
         patch.set_edgecolor("0.25")
         patch.set_linewidth(1.0)
+        patch.set_zorder(2)
     rng = np.random.default_rng(15)
     for i, group in enumerate(GROUP_ORDER):
         vals = box_data[i]
@@ -955,13 +992,14 @@ def draw_group_box_panel(
             linewidth=0.0,
             alpha=point_alpha,
             rasterized=True,
+            zorder=4,
         )
     ax.axhline(0, color="#777777", lw=0.65, alpha=0.45, zorder=0)
     ax.set_xticks(positions, [SHORT_LABELS[g] for g in GROUP_ORDER], rotation=35, ha="right")
     ax.set_ylabel(ylabel)
     style_open_axes(ax, tick_length=4.0, tick_width=1.2)
     add_sig_bars(ax, box_data, start_y=sig_start_y)
-    label(ax, panel, x=-0.33)
+    label(ax, panel)
 
 
 def load_recording_fcv_points_for_j() -> pd.DataFrame:
@@ -989,18 +1027,18 @@ def draw_summary_row(fig: plt.Figure, subspec, order: pd.DataFrame) -> None:
     )
     axes = [fig.add_subplot(gs[0, i]) for i in range(6)]
     matrix_cbars = [
-        draw_sc_matrix(fig, axes[0], "D"),
-        draw_fc_matrix(fig, axes[1], order, "E"),
-        draw_fcv_matrix(fig, axes[2], order, "F"),
+        draw_sc_matrix(fig, axes[0], "E"),
+        draw_fc_matrix(fig, axes[1], order, "D"),
+        draw_fcv_matrix(fig, axes[2], order, "G"),
     ]
-    draw_best_scatter(axes[3])
+    draw_best_scatter(axes[3], "F")
     j_points = load_recording_fcv_points_for_j()
     k_points = pd.read_csv(SCATTER_SCORES).dropna(subset=["weighted_mean_PostDCA_positive", "big_group"])
     draw_group_box_panel(
         axes[4],
         j_points,
         "FCV_z",
-        "FCV z",
+        "zFCV",
         "H",
         point_size=3.0,
         point_alpha=0.10,
@@ -1012,7 +1050,7 @@ def draw_summary_row(fig: plt.Figure, subspec, order: pd.DataFrame) -> None:
         axes[5],
         k_points,
         "weighted_mean_PostDCA_positive",
-        "Post-DCA+",
+        DCA_POST_LABEL,
         "I",
         point_size=3.0,
         point_alpha=0.20,
@@ -1169,7 +1207,7 @@ def draw_method_stats(ax: plt.Axes) -> None:
         ax.text(i, row["spearman_rho"] + (0.025 if row["spearman_rho"] >= 0 else -0.045), f"p={row['spearman_p']:.1e}", ha="center", va="bottom" if row["spearman_rho"] >= 0 else "top", fontsize=6)
     ax.set_xticks(np.arange(len(rows)), rows["short"], rotation=25, ha="right")
     ax.set_ylabel("Spearman rho")
-    ax.set_title("Post-DCA definition check")
+    ax.set_title(r"$\mathrm{DCA}_{\mathrm{post}}$ definition check")
     ax.spines[["top", "right"]].set_visible(False)
     label(ax, "F", x=-0.10)
 
@@ -1191,24 +1229,157 @@ def draw_weight_control(ax: plt.Axes) -> None:
     label(ax, "G", x=-0.10)
 
 
-def main() -> None:
-    set_style()
-    order = pd.read_csv(ORDER_999)
+# 2. Layout preparation
 
-    fig = plt.figure(figsize=(16.0, 7.4))
-    outer = fig.add_gridspec(2, 1, height_ratios=[1.02, 1.05], hspace=0.18)
-    draw_representation_row(fig, outer[0])
-    draw_summary_row(fig, outer[1], order)
+def prepare_layout() -> tuple[plt.Figure, dict]:
+    # Match the C. elegans figure: A above B/C on the left,
+    # with equal-size summary panels arranged to the right.
+    fig = plt.figure(figsize=(16.0, 6.2))
+    grid = fig.add_gridspec(
+        2,
+        4,
+        left=0.045,
+        right=0.985,
+        top=0.945,
+        bottom=0.085,
+        width_ratios=[1.98, 1.0, 1.0, 1.0],
+        height_ratios=[1.0, 1.0],
+        hspace=0.48,
+        wspace=0.20,
+    )
+    example_grid = grid[1, 0].subgridspec(1, 2, wspace=0.32)
+    return fig, {
+        "network": grid[0, 0],
+        "fc_matrix": grid[0, 1],
+        "sc_matrix": grid[0, 2],
+        "scatter": grid[0, 3],
+        "high_example": example_grid[0, 0],
+        "low_example": example_grid[0, 1],
+        "fcv_matrix": grid[1, 1],
+        "fcv_box": grid[1, 2],
+        "postdca_box": grid[1, 3],
+    }
 
+
+# 3. Draw each panel group
+
+def draw_example_column(fig: plt.Figure, subspec, example: dict, panel: str, kind: str) -> None:
+    gs = subspec.subgridspec(2, 1, height_ratios=[1.35, 0.8], hspace=0.04)
+    ax_trace = fig.add_subplot(gs[0, 0])
+    ax_corr = fig.add_subplot(gs[1, 0])
+    draw_trace_panel(ax_trace, example, panel, kind)
+    draw_corr_panel(ax_corr, example)
+
+
+def draw_summary_grid(fig: plt.Figure, layout: dict, order: pd.DataFrame) -> None:
+    ax_sc = fig.add_subplot(layout["sc_matrix"])
+    ax_fc = fig.add_subplot(layout["fc_matrix"])
+    ax_fcv = fig.add_subplot(layout["fcv_matrix"])
+    ax_g = fig.add_subplot(layout["scatter"])
+    ax_h = fig.add_subplot(layout["fcv_box"])
+    ax_i = fig.add_subplot(layout["postdca_box"])
+
+    matrix_cbars = [
+        draw_sc_matrix(fig, ax_sc, "E"),
+        draw_fc_matrix(fig, ax_fc, order, "D"),
+        draw_fcv_matrix(fig, ax_fcv, order, "G"),
+    ]
+    draw_best_scatter(ax_g, "F")
+    j_points = load_recording_fcv_points_for_j()
+    k_points = pd.read_csv(SCATTER_SCORES).dropna(subset=["weighted_mean_PostDCA_positive", "big_group"])
+    draw_group_box_panel(
+        ax_h,
+        j_points,
+        "FCV_z",
+        "zFCV",
+        "H",
+        point_size=3.0,
+        point_alpha=0.10,
+        jitter_width=0.22,
+        sig_start_y=4.2,
+    )
+    ax_h.set_ylim(top=7.1)
+    draw_group_box_panel(
+        ax_i,
+        k_points,
+        "weighted_mean_PostDCA_positive",
+        DCA_POST_LABEL,
+        "I",
+        point_size=3.0,
+        point_alpha=0.20,
+        jitter_width=0.22,
+    )
+
+    fig.canvas.draw()
+    for ax, cbar in zip([ax_sc, ax_fc, ax_fcv], matrix_cbars):
+        ax_pos = ax.get_position()
+        cbar_pos = cbar.ax.get_position()
+        cbar.ax.set_position([cbar_pos.x0, ax_pos.y0, cbar_pos.width, ax_pos.height])
+    ax_pos = ax_sc.get_position()
+    cbar_pos = matrix_cbars[0].ax.get_position()
+    ax_sc.set_position([ax_pos.x0 + PANEL_D_SHIFT_X, ax_pos.y0, ax_pos.width, ax_pos.height])
+    matrix_cbars[0].ax.set_position([
+        cbar_pos.x0 + PANEL_D_SHIFT_X,
+        cbar_pos.y0,
+        cbar_pos.width,
+        cbar_pos.height,
+    ])
+    for ax, cbar in [(ax_fc, matrix_cbars[1]), (ax_fcv, matrix_cbars[2])]:
+        ax_pos = ax.get_position()
+        cbar_pos = cbar.ax.get_position()
+        ax.set_position([ax_pos.x0 + PANEL_EF_SHIFT_X, ax_pos.y0, ax_pos.width, ax_pos.height])
+        cbar.ax.set_position([cbar_pos.x0 + PANEL_EF_SHIFT_X, cbar_pos.y0, cbar_pos.width, cbar_pos.height])
+    for ax in [ax_g, ax_h, ax_i]:
+        pos = ax.get_position()
+        ax.set_position([pos.x0, pos.y0, pos.width * PANEL_GHI_WIDTH_SCALE, pos.height])
+    pos = ax_h.get_position()
+    ax_h.set_position([pos.x0 + PANEL_H_SHIFT_X, pos.y0, pos.width, pos.height])
+
+
+def draw_all_panels(fig: plt.Figure, layout: dict, plot_data: dict) -> None:
+    high, low = choose_trace_examples()
+    ax_network = fig.add_subplot(layout["network"])
+    draw_ito48_network(ax_network)
+    pos = ax_network.get_position()
+    ax_network.set_position([pos.x0 + PANEL_A_SHIFT_X, pos.y0, pos.width, pos.height])
+    draw_example_column(fig, layout["high_example"], high, "B", "high")
+    draw_example_column(fig, layout["low_example"], low, "C", "low")
+    draw_summary_grid(fig, layout, plot_data["order"])
+
+
+# 4. Panel position adjustment and panel labels
+
+def adjust_panel_positions_and_labels(fig: plt.Figure) -> None:
+    fig.canvas.draw()
+
+
+# 5. Save figure
+
+def save_figure(fig: plt.Figure) -> None:
     OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
     OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.04)
-    fig.savefig(OUT_PDF, bbox_inches="tight", pad_inches=0.04)
-    plt.close(fig)
+    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.04,transparent=True)
+    #fig.savefig(OUT_PDF, bbox_inches="tight", pad_inches=0.04)
 
+
+def print_summary() -> None:
     print(f"Saved PNG: {OUT_PNG}")
     print(f"Saved PDF: {OUT_PDF}")
-    print("Final result remembered: w15 step5, 0.03 Hz high-pass, weighted_mean_PostDCA_positive, synapse-count weighted SC, Branson999-first FC measures.")
+    print(
+        "Final result remembered: w15 step5, 0.03 Hz high-pass, "
+        "weighted_mean_PostDCA_positive, synapse-count weighted SC, "
+        "Branson999-first FC measures."
+    )
+
+
+def main() -> None:
+    plot_data = prepare_plot_data()
+    fig, outer = prepare_layout()
+    draw_all_panels(fig, outer, plot_data)
+    adjust_panel_positions_and_labels(fig)
+    save_figure(fig)
+    plt.close(fig)
+    print_summary()
 
 
 if __name__ == "__main__":

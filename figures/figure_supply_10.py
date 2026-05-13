@@ -196,8 +196,8 @@ feature_panels = [
     ("A", "FCS(z-score)", fcs_lists),
     ("B", "FCV(z-score)", fcv_lists),
     ("C", "Metastability", metastability_lists),
-    ("D", "Net TE", net_te_lists),
-    ("E", "Neighbor Net TE", neighbor_net_te_lists),
+    ("D", r"$\mathrm{TE}_{\mathrm{net}}$", net_te_lists),
+    ("E", "Neighbor " + r"$\mathrm{TE}_{\mathrm{net}}$", neighbor_net_te_lists),
 ]
 
 

@@ -424,8 +424,8 @@ darw_region_bar(ax6,log_outin_degree_data,log_outin_degree_sel_n);
 ax1.set_ylabel('Clustering');
 ax3.set_ylabel('Global Efficiency');
 ax2.set_ylabel('ModularityQ');
-ax4.set_ylabel('Post-DCA');
-ax5.set_ylabel('Pre-DCA');
+ax4.set_ylabel(r'$\mathrm{DCA}_{\mathrm{post}}$');
+ax5.set_ylabel(r'$\mathrm{DCA}_{\mathrm{pre}}$');
 ax6.set_ylabel('log10(Out/In-degree)');
 
 
