@@ -28,7 +28,7 @@ import pandas as pd
 from scipy.cluster.hierarchy import dendrogram, linkage
 from scipy.signal import butter, sosfiltfilt
 from scipy.signal import detrend as scipy_detrend
-from scipy.stats import kruskal, mannwhitneyu, pearsonr, spearmanr
+from scipy.stats import kruskal, mannwhitneyu, pearsonr
 
 # Workflow:
 # 1. Data loading and plotting calculations.
@@ -906,34 +906,34 @@ def draw_fcv_matrix(fig: plt.Figure, ax: plt.Axes, order: pd.DataFrame, panel: s
 
 
 def draw_best_scatter(ax: plt.Axes, panel: str = "G") -> None:
-    y_col = "mean_FCV_excl_same_side_key_z"
-    df = pd.read_csv(SCATTER_SCORES).dropna(subset=["weighted_mean_PostDCA_positive", y_col])
+    x_col = "weighted_mean_PostDCA_positive"
+    y_col = "FCV_z"
+    df = pd.read_csv(FC5_SIDEKEY).dropna(subset=[x_col, y_col])
     for group in GROUP_ORDER:
         sub = df[df["big_group"] == group]
         if sub.empty:
             continue
         ax.scatter(
-            sub["weighted_mean_PostDCA_positive"],
+            sub[x_col],
             sub[y_col],
-            s=16,
+            s=36,
             color=GROUP_COLORS[group],
             edgecolor="white",
-            linewidth=0.25,
-            alpha=0.66,
+            linewidth=0.35,
+            alpha=0.86,
             label=SHORT_LABELS[group],
         )
-    x = df["weighted_mean_PostDCA_positive"].to_numpy()
+    x = df[x_col].to_numpy()
     y = df[y_col].to_numpy()
     coef = np.polyfit(x, y, 1)
     xx = np.linspace(np.nanmin(x), np.nanmax(x), 100)
     ax.plot(xx, coef[0] * xx + coef[1], color="black", lw=1.0)
-    sp = spearmanr(x, y)
     pr = pearsonr(x, y)
     ax.text(
         0.4,
         0.2,
-        #f"rho={sp.statistic:.2f}, p={sp.pvalue:.2g}\n"
-        f"r={pr.statistic:.2f}, p={pr.pvalue:.2g}",
+        f"r={pr.statistic:.2f}, p={pr.pvalue:.3f}\n"
+        f"n={len(df)} regions",
         transform=ax.transAxes,
         ha="left",
         va="top",
@@ -1359,7 +1359,7 @@ def save_figure(fig: plt.Figure) -> None:
     OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
     OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.04,transparent=True)
-    #fig.savefig(OUT_PDF, bbox_inches="tight", pad_inches=0.04)
+    fig.savefig(OUT_PDF, bbox_inches="tight", pad_inches=0.04)
 
 
 def print_summary() -> None:
