@@ -389,8 +389,9 @@ def aggregate_sc_to_matched_nodes(nodes: pd.DataFrame) -> pd.DataFrame:
     agg = agg.groupby(level=0).sum().T.groupby(level=0).sum().T
     labels = nodes["atlas_region"].tolist()
     agg = agg.reindex(index=labels, columns=labels, fill_value=0.0)
-    np.fill_diagonal(agg.values, 0.0)
-    return agg
+    agg_values = agg.to_numpy(dtype=float, copy=True)
+    np.fill_diagonal(agg_values, 0.0)
+    return pd.DataFrame(agg_values, index=labels, columns=labels)
 
 
 def aggregate_999_matrix_to_matched_nodes(matrix_path: Path, nodes: pd.DataFrame) -> pd.DataFrame:
@@ -412,8 +413,9 @@ def aggregate_999_matrix_to_matched_nodes(matrix_path: Path, nodes: pd.DataFrame
                 continue
             block = matrix.loc[src_labels, dst_labels].to_numpy(dtype=float)
             out.loc[src, dst] = float(np.nanmean(block))
-    np.fill_diagonal(out.values, 0.0)
-    return out
+    out_values = out.to_numpy(dtype=float, copy=True)
+    np.fill_diagonal(out_values, 0.0)
+    return pd.DataFrame(out_values, index=labels, columns=labels)
 
 
 def recording_node_timeseries(rec: pd.DataFrame, nodes: pd.DataFrame, order: pd.DataFrame) -> tuple[list[str], np.ndarray]:

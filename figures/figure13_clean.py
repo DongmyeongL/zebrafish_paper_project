@@ -19,6 +19,13 @@ from statsmodels.stats.multitest import multipletests
 
 import figure_style as fig_help
 
+# Workflow:
+# 1. Data loading and plotting calculations.
+# 2. Layout preparation.
+# 3. Draw each panel.
+# 4. Panel position adjustment and panel labels.
+# 5. Save figure and statistics.
+
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 fig_help.set_paper_style()
@@ -38,6 +45,8 @@ FIG13_DATA_DIR = DATA_DIR / "figure13"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 STATS_DIR = OUTPUT_DIR / "stats"
 STATS_CSV = STATS_DIR / "figure13_stats.csv"
+OUT_PNG = OUTPUT_DIR / "png" / "figure13_final.png"
+OUT_PDF = OUTPUT_DIR / "pdf" / "figure13_final.pdf"
 
 PANEL_FS = 13
 TITLE_FS = 12
@@ -62,6 +71,8 @@ layer_plot = _load_module(
     "figure13_layer_asymmetric_plot",
 )
 
+
+# 1. Data loading and plotting calculations
 
 def bootstrap_diff(a_values, b_values, n_boot=10000):
     observed = np.mean(a_values) - np.mean(b_values)
@@ -233,7 +244,7 @@ def load_figure10_large_scale_bootstrap():
     fcs_p = [p1, p2, p3]
     stats_rows.append({
         "figure": "figure13",
-            "panel": "E",
+        "panel": "E",
         "metric": "FCS",
         "test": "Kruskal-Wallis",
         "comparison": "Base vs Null-In vs Null-Out",
@@ -247,7 +258,12 @@ def load_figure10_large_scale_bootstrap():
         "mean_null_out": np.mean(out_sim_ave_data),
     })
     for row in fcs_rows:
-        row.update({"figure": "figure13", "panel": "E", "metric": "FCS", "test": "bootstrap mean difference"})
+        row.update({
+            "figure": "figure13",
+            "panel": "E",
+            "metric": "FCS",
+            "test": "bootstrap mean difference",
+        })
         stats_rows.append(row)
 
     fcv_kruskal = kruskal(out_sim_std_data, in_sim_std_data, sim_std_data)
@@ -258,7 +274,7 @@ def load_figure10_large_scale_bootstrap():
     fcv_p = [p4, p5, p6]
     stats_rows.append({
         "figure": "figure13",
-            "panel": "E",
+        "panel": "E",
         "metric": "FCV",
         "test": "Kruskal-Wallis",
         "comparison": "Base vs Null-In vs Null-Out",
@@ -272,9 +288,35 @@ def load_figure10_large_scale_bootstrap():
         "mean_null_out": np.mean(out_sim_std_data),
     })
     for row in fcv_rows:
-        row.update({"figure": "figure13", "panel": "E", "metric": "FCV", "test": "bootstrap mean difference"})
+        row.update({
+            "figure": "figure13",
+            "panel": "E",
+            "metric": "FCV",
+            "test": "bootstrap mean difference",
+        })
         stats_rows.append(row)
     return (fcs_boot, fcs_p), (fcv_boot, fcv_p), stats_rows
+
+
+def prepare_plot_data():
+    results, args = load_figure11_layer_data()
+    eps = results["epsilon_values"]
+    mean_fc_mean, mean_fc_sem = layer_plot.mean_and_sem(results["layer_mean_fc"])
+    std_mean, std_sem = layer_plot.mean_and_sem(results["layer_temporal_std_fc"])
+    (fcs_boot, fcs_p), (fcv_boot, fcv_p), stats_rows = load_figure10_large_scale_bootstrap()
+    return {
+        "args": args,
+        "eps": eps,
+        "mean_fc_mean": mean_fc_mean,
+        "mean_fc_sem": mean_fc_sem,
+        "std_mean": std_mean,
+        "std_sem": std_sem,
+        "fcs_boot": fcs_boot,
+        "fcs_p": fcs_p,
+        "fcv_boot": fcv_boot,
+        "fcv_p": fcv_p,
+        "stats_rows": stats_rows,
+    }
 
 
 def draw_layer_fc_panel(ax, eps, values, sem, args, ylabel, title, show_legend=False):
@@ -294,7 +336,7 @@ def draw_layer_fc_panel(ax, eps, values, sem, args, ylabel, title, show_legend=F
             linewidth=LINE_W,
             label=label,
         )
-    ax.set_xlabel(r"Between-layer asymmetry ($\epsilon$)", fontsize=AXIS_FS)
+    ax.set_xlabel(r" $\mathrm{DCA}_{\mathrm{post}}(\sim\epsilon$)", fontsize=AXIS_FS)
     ax.set_ylabel(ylabel, fontsize=AXIS_FS)
     ax.set_title("")
     ax.grid(False)
@@ -395,13 +437,13 @@ def draw_layer_network_panel_clean(ax, args):
                     zorder=1,
                 ))
 
-    arrow_x = 0.72+0.1;
+    arrow_x = 0.82
     for layer_idx in range(n_layers - 1):
         scale = args.inter_epsilon_scales[layer_idx]
         y0 = y_positions[layer_idx]
         y1 = y_positions[layer_idx + 1]
         lw_down = 2.5 + 3.4 * scale / max_scale
-        
+
         ax.add_patch(FancyArrowPatch(
             (arrow_x, y0 - 0.01),
             (arrow_x, y1 + 0.01),
@@ -428,30 +470,7 @@ def draw_layer_network_panel_clean(ax, args):
             connectionstyle="arc3,rad=0.24",
             zorder=4,
         ))
-        '''
-        ax.text(
-            arrow_x - 0.035,
-            (y0 + y1) / 2,
-            f"s={scale:g}",
-            ha="right",
-            va="center",
-            fontsize=TICK_FS - 1,
-            color="#d95f02",
-            fontweight="bold",
-        )
-        '''
-    '''
-    ax.text(
-        0.76,
-        0.985,
-        "Between-layer\nasymmetry " + r"($\epsilon$)",
-        ha="center",
-        va="center",
-        fontsize=TICK_FS,
-        fontweight="bold",
-        linespacing=0.9,
-    )
-    '''
+
     ax.text(
         0.85,
         -0.055,
@@ -472,17 +491,7 @@ def draw_layer_network_panel_clean(ax, args):
         color="#377eb8",
         fontweight="bold",
     )
-    '''
-    ax.text(
-        x_center,
-        -0.135,
-        "within-layer: symmetric",
-        ha="center",
-        va="center",
-        fontsize=TICK_FS - 1,
-        color="0.35",
-    )
-    '''
+
 
 def draw_large_scale_model_panel(ax):
     ax.set_xlim(0, 1)
@@ -546,26 +555,27 @@ def draw_large_scale_model_panel(ax):
 
     def _edge_set(ax, starts, ends, color, active=True, rewired=False, reverse=False):
         base_pairs = [(0, 1), (1, 3), (2, 0), (3, 2)]
-        rewired_pairs = [(0, 3), (1, 0), (2, 2), (3, 1)]
+        rewired_pairs = [(0, 3), (1, 2), (2, 1), (3, 0), (0, 2), (3, 1)]
         pairs = base_pairs
         if rewired:
             pairs = rewired_pairs
-        for start_idx, end_idx in pairs:
+        for pair_idx, (start_idx, end_idx) in enumerate(pairs):
             p0 = starts[start_idx]
             p1 = ends[end_idx]
             if reverse:
                 p0, p1 = p1, p0
+            rad = 0.20 * (-1 if pair_idx % 2 else 1) if rewired else 0.0
             _arrow(
                 ax,
                 p0,
                 p1,
                 color,
-                lw=1.15 if active else 0.55,
-                alpha=0.88 if active else 0.18,
-                rad=0.0,
+                lw=1.35 if (active and rewired) else (1.15 if active else 0.55),
+                alpha=0.94 if (active and rewired) else (0.88 if active else 0.18),
+                rad=rad,
                 linestyle="--" if rewired else "-",
-                zorder=3 if active else 2,
-                mutation_scale=8.0 if active else 5.0,
+                zorder=5 if (active and rewired) else (3 if active else 2),
+                mutation_scale=9.5 if (active and rewired) else (8.0 if active else 5.0),
             )
 
     def _draw_condition(x0, title, active):
@@ -576,9 +586,9 @@ def draw_large_scale_model_panel(ax):
         else:
             face = "#eeeeee"
         box = mpatches.FancyBboxPatch(
-            (x0, 0.09),
+            (x0, 0.06),
             0.28,
-            0.84,
+            0.88,
             boxstyle="round,pad=0.012,rounding_size=0.025",
             facecolor=face,
             edgecolor="0.65",
@@ -587,13 +597,13 @@ def draw_large_scale_model_panel(ax):
             zorder=0,
         )
         ax.add_patch(box)
-        ax.text(x0 + 0.14, 0.905, title, ha="center", va="center",
+        ax.text(x0 + 0.14, 0.915, title, ha="center", va="center",
                 fontsize=TICK_FS - 2, fontweight="bold")
 
         selected = (x0 + 0.14, 0.51)
-        source = (x0 + 0.14, 0.78)
-        target = (x0 + 0.14, 0.23)
-        cell_dx, cell_dy = 0.036, 0.026
+        source = (x0 + 0.14, 0.81)
+        target = (x0 + 0.14, 0.20)
+        cell_dx, cell_dy = 0.040, 0.030
         source_cells = np.array([
             [source[0] - cell_dx, source[1] + cell_dy],
             [source[0] + cell_dx, source[1] + cell_dy],
@@ -628,11 +638,6 @@ def draw_large_scale_model_panel(ax):
             zorder=7,
         )
 
-        #x.text(source[0], source[1] + 0.086, "edges into\nP/SP", ha="center", va="bottom",
-        #       fontsize=TICK_FS - 6, color=blue, linespacing=0.85, fontweight="bold")
-        #x.text(target[0], target[1] - 0.086, "edges out of\nP/SP", ha="center", va="top",
-        #       fontsize=TICK_FS - 6, color=orange, linespacing=0.85, fontweight="bold")
-
         _edge_set(ax, source_cells, selected_cells, blue,
                   active=active in {"base", "in"}, rewired=active == "in")
         _edge_set(ax, selected_cells, target_cells, orange,
@@ -645,25 +650,10 @@ def draw_large_scale_model_panel(ax):
     _draw_condition(0.36, "NULL-Out", "out")
     _draw_condition(0.69, "NULL-In", "in")
 
-    #ax.text(
-    #    0.50,
-    #    0.040,
-    #    "Region pairs fixed;\ncell endpoints shuffled",
-    #    ha="center",
-    #    va="center",
-    #   fontsize=TICK_FS - 6,
-    #   color="0.25",
-    #   linespacing=0.95,
-   # )
 
+# 2. Layout preparation
 
-def main():
-    results, args = load_figure11_layer_data()
-    eps = results["epsilon_values"]
-    mean_fc_mean, mean_fc_sem = layer_plot.mean_and_sem(results["layer_mean_fc"])
-    std_mean, std_sem = layer_plot.mean_and_sem(results["layer_temporal_std_fc"])
-    (fcs_boot, fcs_p), (fcv_boot, fcv_p), stats_rows = load_figure10_large_scale_bootstrap()
-
+def prepare_layout():
     fig = plt.figure(figsize=(16, 4))
     gs = GridSpec(
         1,
@@ -684,31 +674,103 @@ def main():
     gs_e = GridSpecFromSubplotSpec(1, 2, subplot_spec=gs[0, 4], wspace=0.58)
     ax_e_fcs = fig.add_subplot(gs_e[0, 0])
     ax_e_fcv = fig.add_subplot(gs_e[0, 1])
+    axes = {
+        "a": ax_a,
+        "b": ax_b,
+        "c": ax_c,
+        "d": ax_d,
+        "e_fcs": ax_e_fcs,
+        "e_fcv": ax_e_fcv,
+    }
+    return fig, axes
 
-    draw_layer_network_panel_clean(ax_a, args)
 
+# 3. Draw each panel
+
+def draw_panel_a(ax_a, plot_data):
+    draw_layer_network_panel_clean(ax_a, plot_data["args"])
+
+
+def draw_panel_b(ax_b, plot_data):
     draw_layer_fc_panel(
         ax_b,
-        eps,
-        mean_fc_mean,
-        mean_fc_sem,
-        args,
-        " FCS",
+        plot_data["eps"],
+        plot_data["mean_fc_mean"],
+        plot_data["mean_fc_sem"],
+        plot_data["args"],
+        "FCS",
         "Layer-mean FC",
         show_legend=False,
     )
+
+
+def draw_panel_c(ax_c, plot_data):
     draw_layer_fc_panel(
         ax_c,
-        eps,
-        std_mean,
-        std_sem,
-        args,
+        plot_data["eps"],
+        plot_data["std_mean"],
+        plot_data["std_sem"],
+        plot_data["args"],
         "FCV",
         "Layer-mean std FC",
         show_legend=False,
     )
+
+
+def draw_panel_d(ax_d):
+    draw_large_scale_model_panel(ax_d)
+
+
+def draw_panel_e(ax_e_fcs, ax_e_fcv, plot_data):
+    large_scale_colors = ["#4e79a7", "#59a14f", "#f28e2b"]
+    plot_violin_bootstrap(
+        ax_e_fcs,
+        plot_data["fcs_boot"],
+        plot_data["fcs_p"],
+        r"$\Delta$ zFCS",
+        large_scale_colors,
+    )
+    plot_violin_bootstrap(
+        ax_e_fcv,
+        plot_data["fcv_boot"],
+        plot_data["fcv_p"],
+        r"$\Delta$ zFCV",
+        large_scale_colors,
+    )
+    ax_e_fcs.set_title("")
+    ax_e_fcv.set_title("")
+    ax_e_fcs.yaxis.label.set_color("#2f5597")
+    ax_e_fcv.yaxis.label.set_color("#2f5597")
+
+
+def draw_all_panels(axes, plot_data):
+    draw_panel_a(axes["a"], plot_data)
+    draw_panel_b(axes["b"], plot_data)
+    draw_panel_c(axes["c"], plot_data)
+    draw_panel_d(axes["d"])
+    draw_panel_e(axes["e_fcs"], axes["e_fcv"], plot_data)
+
+
+# 4. Panel position adjustment and panel labels
+
+def adjust_panel_positions_and_labels(fig, axes):
+    ax_a = axes["a"]
+    ax_b = axes["b"]
+    ax_c = axes["c"]
+    ax_d = axes["d"]
+    ax_e_fcs = axes["e_fcs"]
+    ax_e_fcv = axes["e_fcv"]
+
     pos_c = ax_c.get_position()
     ax_c.set_position([pos_c.x0 + 0.015, pos_c.y0, pos_c.width, pos_c.height])
+    pos_d = ax_d.get_position()
+    ax_d.set_position([
+        pos_d.x0,
+        pos_d.y0 - 0.045,
+        pos_d.width,
+        pos_d.height + 0.090,
+    ])
+
     handles, labels = ax_c.get_legend_handles_labels()
     fig.legend(
         handles,
@@ -723,15 +785,6 @@ def main():
         handletextpad=0.25,
         markerscale=0.65,
     )
-
-    draw_large_scale_model_panel(ax_d)
-    large_scale_colors = ["#4e79a7", "#59a14f", "#f28e2b"]
-    plot_violin_bootstrap(ax_e_fcs, fcs_boot, fcs_p, r"zFCS", large_scale_colors)
-    plot_violin_bootstrap(ax_e_fcv, fcv_boot, fcv_p, r"zFCV", large_scale_colors)
-    ax_e_fcs.set_title("")
-    ax_e_fcv.set_title("")
-    ax_e_fcs.yaxis.label.set_color("#2f5597")
-    ax_e_fcv.yaxis.label.set_color("#2f5597")
 
     fig.canvas.draw()
     linear_left = ax_a.get_position().x0
@@ -751,7 +804,7 @@ def main():
     fig.text(
         (large_left + large_right) / 2,
         header_y,
-        "Large-scale model",
+        "Zebrafish whole-brain network model",
         ha="center",
         va="bottom",
         fontsize=TITLE_FS,
@@ -779,16 +832,32 @@ def main():
             va="bottom",
         )
 
-    output_png = OUTPUT_DIR / "png" / "figure13_final.png"
-    output_pdf = OUTPUT_DIR / "pdf" / "figure13_final.pdf"
-    fig.savefig(output_png, dpi=600, bbox_inches="tight", transparent=False)
-    fig.savefig(output_pdf, bbox_inches="tight")
+
+# 5. Save figure and statistics
+
+def save_figure(fig):
+    OUT_PNG.parent.mkdir(parents=True, exist_ok=True)
+    OUT_PDF.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", transparent=True)
+    fig.savefig(OUT_PDF, bbox_inches="tight")
+
+
+def save_statistics(plot_data):
     STATS_DIR.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(stats_rows).to_csv(STATS_CSV, index=False)
+    pd.DataFrame(plot_data["stats_rows"]).to_csv(STATS_CSV, index=False)
     print(f"Saved {STATS_CSV}")
+
+
+def main():
+    plot_data = prepare_plot_data()
+    fig, axes = prepare_layout()
+    draw_all_panels(axes, plot_data)
+    adjust_panel_positions_and_labels(fig, axes)
+    save_figure(fig)
+    save_statistics(plot_data)
     plt.close(fig)
-    print(f"Saved {output_png}")
-    print(f"Saved {output_pdf}")
+    print(f"Saved {OUT_PNG}")
+    print(f"Saved {OUT_PDF}")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,13 @@
 import warnings
 warnings.filterwarnings('ignore', category=FutureWarning)
 
+# Figure 9 workflow:
+# 1. Load data and prepare derived quantities for plotting.
+# 2. Prepare the figure layout and axes.
+# 3. Draw each panel.
+# 4. Adjust panel positions and add panel labels.
+# 5. Save figure files and statistics.
+
 import os
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
@@ -68,6 +75,10 @@ STATS_CSV = os.path.join(STATS_DIR, "figure9_stats.csv")
 BASE_NET = os.path.join(DATA, "region_community_io")
 STATS_ROWS = []
 
+
+# ============================================================
+# Helpers
+# ============================================================
 def _zscore(values):
     values = np.asarray(values, dtype=float)
     return (values - np.nanmean(values)) / np.nanstd(values)
@@ -104,6 +115,43 @@ def _aggregate_region_and_division(values_by_subject, region_orders, n_regions_t
     ], dtype=float)
     return region_means, division_values
 
+
+def _add_figure9_panel_labels(ax_dendro, ax_hier, ax_c, ax_d, ax_e, ax_f, ax_g):
+    ax_dendro.text(
+        -0.04, 1.5, 'A',
+        transform=ax_dendro.transAxes,
+        fontsize=fs.PANEL_LABEL_FS_2COL,
+        fontweight='bold',
+        va='bottom',
+        ha='right',
+    )
+    ax_hier.text(
+        -0.02, 0.965, 'B',
+        transform=ax_hier.transAxes,
+        fontsize=fs.PANEL_LABEL_FS_2COL,
+        fontweight='bold',
+        va='bottom',
+        ha='right',
+    )
+    for ax, label in [
+        (ax_c, 'C'),
+        (ax_d, 'D'),
+        (ax_e, 'E'),
+        (ax_f, 'F'),
+        (ax_g, 'G'),
+    ]:
+        ax.text(
+            -0.31, 1.05, label,
+            transform=ax.transAxes,
+            fontsize=fs.PANEL_LABEL_FS_2COL,
+            fontweight='bold',
+            va='bottom',
+        )
+
+
+# ============================================================
+# 1. Data loading and plotting calculations
+# ============================================================
 #fcv-fcs
 bar_df = pd.read_csv(f'{DATA}/fig1_prism_D_FCS_FCV_bar.csv')
 
@@ -246,9 +294,18 @@ out_data_c = out_data[:, leaf_order]
 regions_c  = regions_d[leaf_order]
 divs_c     = divs_d[leaf_order]
 n_regions = out_data_c.shape[1]
-y_labels  = ['zFCS', 'zFCV', 'Metasta-\nbility', 'NetTE', 'Neighbor\nNetTE']
+y_labels  = [
+    'zFCS',
+    'zFCV',
+    'Metasta-\nbility',
+    r'$\mathbf{TE}_{\mathbf{net}}$',
+    'Neighbor\n' + r'$\mathbf{TE}_{\mathbf{net}}$',
+]
 
-# ── Figure 레이아웃: Left=[A (dendro+divbar+heat)] | Right=[B (network)], [C D E F G] ──
+# ============================================================
+# 2. Layout preparation
+# ============================================================
+# Left=[A (dendro+divbar+heat)] | Right=[B (network)] | Bottom=[C D E F G]
 _fig_w   = 16;#fs.TWO_COL_IN
 _fig_h   = 9;#fs.TWO_COL_IN * 0.65
 fig = plt.figure(figsize=(_fig_w, _fig_h))
@@ -281,9 +338,7 @@ ax_e = fig.add_subplot(gs[3:5, 4:6])    # Panel E
 ax_f = fig.add_subplot(gs[3:5, 6:8])    # Panel F
 ax_g = fig.add_subplot(gs[3:5, 8:10])   # Panel G
 
-# ════════════════════════════════════════════════════════════════
-# ── Data loading & helpers for Panels C-G ──
-# ════════════════════════════════════════════════════════════════
+# Panel C-G plotting helpers and source tables
 
 # ── figure2 helper functions ──
 _div_colors_f2 = {'Tel': '#74c476', 'Di': '#fdae6b', 'Mes': '#fb6a4a', 'Hind': '#6baed6'}
@@ -381,13 +436,14 @@ _metastability = _metastability_division_df(metastability_df)
 out_net_te_data_df = _division_lists_to_df(out_net_te_data)
 out_neigh_net_te_data_df = _division_lists_to_df(out_neigh_net_te_data)
 
-# ════════════════════════════════════════════════════════════════
-# ── Panels C, D, E: figure2 Panel A, B, C ──
-# ════════════════════════════════════════════════════════════════
+# ============================================================
+# 3. Draw each panel
+# ============================================================
+# Panels C-G: division-level boxplots
 _boxplot_panel(ax_c, _fcs, 'zFCS ')
 _boxplot_panel(ax_d, _fcv, 'zFCV ')
 _boxplot_panel(ax_e, _metastability, 'Metastability')
-_boxplot_panel(ax_f, out_net_te_data_df, 'NetTE')
+_boxplot_panel(ax_f, out_net_te_data_df, r'$\mathrm{TE}_{\mathrm{net}}$')
 ax_f.yaxis.set_major_formatter(FuncFormatter(lambda value, pos: f'{value * 1e2:g}'))
 ax_f.text(
     -0.22, 1.02, r'$\times 10^{-2}$',
@@ -396,7 +452,7 @@ ax_f.text(
     ha='left',
     va='bottom',
 )
-_boxplot_panel(ax_g, out_neigh_net_te_data_df, 'Neighbor NetTE')
+_boxplot_panel(ax_g, out_neigh_net_te_data_df, 'Neighbor ' + r'$\mathrm{TE}_{\mathrm{net}}$')
 ax_g.yaxis.set_major_formatter(FuncFormatter(lambda value, pos: f'{value * 1e3:g}'))
 ax_g.text(
     -0.22, 1.02, r'$\times 10^{-3}$',
@@ -404,22 +460,9 @@ ax_g.text(
     fontsize=fs.TICK_FS_2COL,
     ha='left',
     va='bottom',
-)
+    )
 
-# 패널 레터 A
-ax_dendro.text(-0.05, 1.5, 'A', transform=ax_dendro.transAxes,
-               fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom', ha='right')
-ax_c.text(-0.31, 1.05, 'C', transform=ax_c.transAxes, fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom')
-ax_d.text(-0.31, 1.05, 'D', transform=ax_d.transAxes, fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom')
-ax_e.text(-0.31, 1.05, 'E', transform=ax_e.transAxes, fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom')
-ax_f.text(-0.31, 1.05, 'F', transform=ax_f.transAxes, fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom')
-ax_g.text(-0.31, 1.05, 'G', transform=ax_g.transAxes, fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom')
-ax_hier.text(-0.02, 0.965, 'B', transform=ax_hier.transAxes,
-               fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='bottom', ha='right')
-
-
-
-# ── 1. Dendrogram ──
+# Panel A: dendrogram, division bar, and feature heatmap
 dendrogram(Z, ax=ax_dendro, no_labels=True,
            color_threshold=0, above_threshold_color='#333333')
 ax_dendro.set_xlim(0, n_regions * 10)
@@ -530,7 +573,7 @@ _drive_norm_arr = (_drive_ranks - 1) / max(len(_drive_ranks) - 1, 1)
 _k_to_drive_norm = {_k: float(_drive_norm_arr[_i]) for _i, _k in enumerate(_valid_ks_h)}
 _white = np.array([1.0, 1.0, 1.0])
 
-# ── 6. Hierarchical TE Network (Panel B) ──
+# Panel B: hierarchical TE network
 # 7a. Load fc_neighbor_mask_fdr (BH-FDR q<0.001) from region_community_io
 #     Region-level FC edge = significant in >= 4/7 subjects (majority rule)
 fc_sig_cnt_h = np.zeros((n_nr, n_nr), dtype=int)
@@ -678,12 +721,21 @@ ax_hier.set_position([pos.x0, pos.y0-0.1, pos.width , pos.height*1.45])
 ax_hier.set_aspect('auto')
 ax_hier.axis('off')
 #ax_hier.text(-1.18, 3.65, 'B', fontsize=fs.PANEL_LABEL_FS_2COL, fontweight='bold', va='top')
-#ax_hier.text(0, -0.98,
-#             'Hierarchical TE Network  (colored edges: output→output cascade paths,  node size/color ∝ Net TE drive)',
-#             fontsize=fs.STAT_FS_2COL, ha='center', va='top', color='#444444', fontweight='bold')
+ax_hier.text(
+    -1.0, 3.68,
+    'Node size/color: FCV rank\n'
+    + r'Edges: significant FC +  $\mathrm{TE}_{\mathrm{net}}$',
+    fontsize=fs.STAT_FS_2COL,
+    #ha='center',
+    va='top',
+    color='#444444',
+)
 
 
 
+# ============================================================
+# 4. Panel position adjustment and panel labels
+# ============================================================
 _cb_pos = ax_cbar.get_position()
 ax_cbar.set_position([_cb_pos.x0, _cb_pos.y0, _cb_pos.width * 0.4, _cb_pos.height])
 
@@ -696,8 +748,14 @@ for _ax in [ax_c, ax_d, ax_e, ax_f, ax_g]:
     _nh = _p.height * 0.45
     _ax.set_position([_cx - _nw/2, _cy - _nh/2, _nw, _nh])
 
-fig.savefig(OUTPUT_PNG, dpi=600, bbox_inches='tight', transparent=False)
-fig.savefig(OUTPUT_PDF, bbox_inches='tight')
+_add_figure9_panel_labels(ax_dendro, ax_hier, ax_c, ax_d, ax_e, ax_f, ax_g)
+
+
+# ============================================================
+# 5. Save figure and statistics
+# ============================================================
+fig.savefig(OUTPUT_PNG, dpi=600, bbox_inches='tight', transparent=True)
+#fig.savefig(OUTPUT_PDF, bbox_inches='tight')
 os.makedirs(STATS_DIR, exist_ok=True)
 pd.DataFrame(STATS_ROWS).to_csv(STATS_CSV, index=False)
 print(f"Saved {STATS_CSV}")

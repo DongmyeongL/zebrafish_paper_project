@@ -32,6 +32,13 @@ import figure_style as fs
 import figure_fc_dynamics_final_fc_shift_summary as fc_shift_summary
 import figure_regionwise_multivariate_coupling as coupling
 
+# Workflow:
+# 1. Data loading and plotting calculations.
+# 2. Layout preparation.
+# 3. Draw each panel.
+# 4. Panel position adjustment and panel labels.
+# 5. Save figure and statistics.
+
 
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BASE_DIR.parent
@@ -69,6 +76,7 @@ DIVISION_COLORS = {
     "Mes": fs.division_colors[3],
 }
 DIVISION_ORDER = ["Tel", "Di", "Mes", "Hind"]
+DCA_POST_LABEL = r"$\mathrm{DCA}_{\mathrm{post}}$"
 
 
 fs.set_paper_style()
@@ -80,6 +88,8 @@ plt.rcParams.update({
     "ytick.labelsize": fs.TICK_FS_2COL,
 })
 
+
+# 1. Data loading and plotting calculations
 
 def _safe_pearson(x, y):
     mask = np.isfinite(x) & np.isfinite(y)
@@ -95,6 +105,16 @@ def _safe_spearman(x, y):
         return np.nan, np.nan
     r, p = spearmanr(x[mask], y[mask])
     return float(r), float(p)
+
+
+def _format_stat_text(r, p):
+    if not np.isfinite(p):
+        p_line = "p = nan"
+    elif p < 0.001:
+        p_line = "p < 0.001"
+    else:
+        p_line = f"p = {p:.3f}"
+    return f"r = {r:.3f}\n{p_line}"
 
 
 def _residualize(y, covariate):
@@ -573,16 +593,10 @@ def _scatter_panel(
     ax.axhline(0, color="#dddddd", lw=1.0, zorder=0)
     ax.axvline(0, color="#dddddd", lw=1.0, zorder=0)
     r, p, _ = _safe_pearson(x, y)
-    if not np.isfinite(p):
-        p_text = "nan"
-    elif p < 0.001:
-        p_text = "< 0.001"
-    else:
-        p_text = f"{p:.3g}"
     ax.text(
         0.03,
         0.97,
-        f"r = {r:.3f}\np = {p_text}",
+        _format_stat_text(r, p),
         transform=ax.transAxes,
         ha="left",
         va="top",
@@ -603,205 +617,10 @@ def _scatter_panel(
         ax.set_xlim(float(xlim_min), xmax)
 
 
-def _correlation_bar_panel(ax, stats, target, title, subject_stats=None):
-    order = [
-        "OO_fraction",
-        "ON_fraction",
-        "NO_fraction",
-        "NN_fraction",
-        "InterOutDegree",
-    ]
-    labels = [
-        "OO",
-        "ON",
-        "NO",
-        "NN",
-        "Out",
-    ]
-    if subject_stats is None:
-        plot_rows = stats[
-            (stats["Target"] == target)
-            & (stats["Variant"] == "unit_norm")
-            & stats["Metric"].isin(order)
-        ].copy()
-        plot_rows["Metric"] = pd.Categorical(
-            plot_rows["Metric"], categories=order, ordered=True
-        )
-        plot_rows = plot_rows.sort_values("Metric")
-        values = plot_rows["Pearson_r"].to_numpy(float)
-        subject_plot = None
-    else:
-        subject_plot = subject_stats[
-            (subject_stats["Target"] == target)
-            & (subject_stats["Variant"] == "unit_norm")
-            & subject_stats["Metric"].isin(order)
-        ].copy()
-        subject_plot["Metric"] = pd.Categorical(
-            subject_plot["Metric"], categories=order, ordered=True
-        )
-        values = (
-            subject_plot.groupby("Metric", observed=False)["Pearson_r"]
-            .mean()
-            .reindex(order)
-            .to_numpy(float)
-        )
-    colors = ["#3b7ddd" if m.startswith("OO") else "#9aa4ad" for m in order]
-    if subject_plot is None:
-        ax.bar(
-            np.arange(len(order)),
-            values,
-            color=colors,
-            edgecolor="black",
-            linewidth=0.6,
-        )
-        ax.axhline(0, color="black", lw=0.8, ls="--")
-        ax.set_xticks(np.arange(len(labels)))
-        ax.set_xticklabels(labels, rotation=0, ha="center")
-        ax.set_ylabel("Pearson r")
-    else:
-        subject_matrix = (
-            subject_plot.pivot_table(
-                index="Subject",
-                columns="Metric",
-                values="Pearson_r",
-                observed=False,
-            )
-            .reindex(columns=order)
-            .sort_index()
-        )
-        y_pos = np.arange(len(order), dtype=float)
-        means = (
-            subject_matrix.mean(axis=0, skipna=True)
-            .reindex(order)
-            .to_numpy(float)
-        )
-        ax.barh(
-            y_pos,
-            means,
-            height=0.46,
-            color=colors,
-            alpha=0.28,
-            edgecolor="none",
-            zorder=1,
-        )
-        for metric_pos, metric in enumerate(order):
-            y = subject_matrix[metric].to_numpy(float)
-            y = y[np.isfinite(y)]
-            if len(y) == 0:
-                continue
-            mean = float(np.mean(y))
-            ci95 = (
-                1.96 * float(np.std(y, ddof=1) / np.sqrt(len(y)))
-                if len(y) > 1
-                else 0.0
-            )
-            yy = np.full(len(y), metric_pos, dtype=float)
-            if len(y) > 1:
-                yy += np.linspace(-0.13, 0.13, len(y))
-            ax.scatter(
-                y,
-                yy,
-                s=20,
-                facecolor="#111111",
-                edgecolor="white",
-                alpha=0.78,
-                linewidths=0.35,
-                zorder=2,
-            )
-            ax.errorbar(
-                mean,
-                metric_pos,
-                xerr=ci95,
-                fmt="D",
-                ms=5.0,
-                color=colors[metric_pos],
-                ecolor="black",
-                elinewidth=1.2,
-                capsize=3.2,
-                capthick=1.2,
-                markeredgecolor="black",
-                markeredgewidth=0.5,
-                zorder=4,
-            )
-        ax.axvline(0, color="black", lw=0.8, ls="--")
-        ax.set_yticks(y_pos)
-        ax.set_yticklabels(labels)
-        ax.set_xlabel("Pearson r")
-        ax.set_xlim(-1, 1)
-        ax.set_ylim(-0.55, len(order) - 0.45)
-        ax.invert_yaxis()
-        ax.grid(axis="x", color="#e6e6e6", lw=0.7, zorder=0)
-    ax.set_title("")
-    ax.tick_params(
-        axis="both",
-        which="both",
-        direction="out",
-        bottom=True,
-        left=True,
-        length=4,
-        width=1.1,
-    )
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
+# 2. Layout preparation
 
-
-def _oo_fraction_target_bar_panel(ax, stats):
-    targets = ["PostDCA", "FCV", "PreDCA"]
-    labels = ["Post-DCA", "FCV", "Pre-DCA"]
-    colors = ["#3b7ddd", "#2ca25f", "#9aa4ad"]
-    values = []
-    pvals = []
-    for target in targets:
-        row = stats[
-            (stats["Target"] == target)
-            & (stats["Variant"] == "unit_norm")
-            & (stats["Metric"] == "OO_fraction")
-        ]
-        if row.empty:
-            values.append(np.nan)
-            pvals.append(np.nan)
-        else:
-            values.append(float(row.iloc[0]["Pearson_r"]))
-            pvals.append(float(row.iloc[0]["Pearson_p"]))
-
-    x = np.arange(len(targets))
-    ax.bar(x, values, color=colors, edgecolor="black", linewidth=0.6)
-    ax.axhline(0, color="black", lw=0.8)
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels, rotation=25, ha="right")
-    ax.set_ylabel("Pearson r with OO fraction")
-    ax.set_title("")
-    ax.set_ylim(-1, 1)
-
-    for xi, r_val, p_val in zip(x, values, pvals):
-        if not np.isfinite(r_val):
-            continue
-        ax.text(
-            xi,
-            r_val + (0.06 if r_val >= 0 else -0.10),
-            f"p={p_val:.2g}",
-            ha="center",
-            va="bottom" if r_val >= 0 else "top",
-            fontsize=fs.STAT_FS_2COL - 1,
-        )
-
-    if np.isfinite(values[0]) and np.isfinite(values[1]):
-        ax.text(
-            0.04,
-            0.06,
-            f"Post-DCA - FCV\nDelta r = {values[0] - values[1]:.3f}",
-            transform=ax.transAxes,
-            ha="left",
-            va="bottom",
-            fontsize=fs.STAT_FS_2COL,
-        )
-
-
-def make_figure(df, stats, subject_stats=None):
-    unit = df[df["Variant"] == "unit_norm"].copy()
-    _, _, fc_shift_mean_df = fc_shift_summary.load_tables()
-
-    fig = plt.figure(figsize=(16, 3))
+def prepare_layout():
+    fig = plt.figure(figsize=(16, 4.0))
     gs = GridSpec(
         1,
         5,
@@ -818,80 +637,114 @@ def make_figure(df, stats, subject_stats=None):
     ax_c = fig.add_subplot(gs[0, 2])
     ax_d = fig.add_subplot(gs[0, 3])
     ax_e = fig.add_subplot(gs[0, 4])
+    axes = {
+        "a": ax_a,
+        "b": ax_b,
+        "c": ax_c,
+        "d": ax_d,
+        "e": ax_e,
+    }
+    return fig, axes
 
+
+# 3. Draw each panel
+
+def draw_panel_a(ax_a, unit):
     _scatter_panel(
         ax_a,
         unit,
         "OO_fraction",
         y_col="PostDCA",
         log_x=False,
-        #title="Post-DCA",
-        xlabel="Mean OO fraction",
-        ylabel="Post-DCA",
+        xlabel="OO fraction",
+        ylabel=DCA_POST_LABEL,
         xlim_min=0.1,
     )
+
+
+def draw_panel_b(ax_b, unit):
     _scatter_panel(
         ax_b,
         unit,
         "OO_fraction",
         y_col="FCV",
         log_x=False,
-        #title="FCV",
-        xlabel="Mean OO fraction",
+        xlabel="OO fraction",
         ylabel="zFCV",
         xlim_min=0.1,
     )
 
+
+def draw_panel_c(ax_c, fc_shift_mean_df):
     _scatter_panel(
         ax_c,
         fc_shift_mean_df,
         "SpontaneousFCV",
         y_col="MeanStimulusFCV",
-        xlabel="Spontaneous zFCV",
-        ylabel="Mean stimulus zFCV",
+        xlabel="zFCV",
+        ylabel="Stimulus zFCV",
     )
+
+
+def draw_panel_d(ax_d, fc_shift_mean_df):
     _scatter_panel(
         ax_d,
         fc_shift_mean_df,
         "SpontaneousFCV",
         y_col="StdStimulusFCVZ",
-        xlabel="Spontaneous zFCV",
-        ylabel="SD stimulus zFCV ",
+        xlabel="zFCV",
+        ylabel="SD stimulus zFCV",
     )
+
+
+def draw_panel_e(ax_e, fc_shift_mean_df):
     _scatter_panel(
         ax_e,
         fc_shift_mean_df,
         "RawPostDCA",
         y_col="MeanStimulusFCV",
-        xlabel="Post-DCA",
-        ylabel="Mean stimulus zFCV",
+        xlabel=DCA_POST_LABEL,
+        ylabel="stimulus zFCV",
     )
+
+
+def draw_all_panels(axes, plot_data):
+    draw_panel_a(axes["a"], plot_data["unit_region_df"])
+    draw_panel_b(axes["b"], plot_data["unit_region_df"])
+    draw_panel_c(axes["c"], plot_data["fc_shift_mean_df"])
+    draw_panel_d(axes["d"], plot_data["fc_shift_mean_df"])
+    draw_panel_e(axes["e"], plot_data["fc_shift_mean_df"])
+
+
+# 4. Panel position adjustment and panel labels
+
+def adjust_panel_positions_and_labels(fig, axes):
+    ax_a = axes["a"]
+    ax_b = axes["b"]
+    ax_c = axes["c"]
+    ax_d = axes["d"]
+    ax_e = axes["e"]
 
     for ax in [ax_c, ax_e]:
         bottom, _ = ax.get_ylim()
         ax.set_ylim(bottom, 1.0)
         ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
 
+    ax_a.set_xlim(0.1, 0.35)
+    ax_a.set_ylim(-0.25, 0.15)
 
-    ax_a.set_xlim(0.1, 0.35);
-    ax_a.set_ylim(-0.25, 0.15);
-    
-    
-    ax_b.set_xlim(0.1, 0.35);
-    ax_b.set_ylim(-1.5,2);
-    
-    
-    
-    ax_c.set_xlim(-1.1, 2);
-    ax_c.set_ylim(-0.7,0.7);
-    
-    ax_d.set_xlim(-1.1, 2);
-    ax_d.set_ylim(-1.7,1.7);
-    
-    
-    ax_e.set_xlim(-0.25, 0.15);
-    ax_e.set_ylim(-0.7,0.7);
-    
+    ax_b.set_xlim(0.1, 0.35)
+    ax_b.set_ylim(-1.5, 2)
+
+    ax_c.set_xlim(-1.1, 2)
+    ax_c.set_ylim(-0.7, 0.7)
+
+    ax_d.set_xlim(-1.1, 2)
+    ax_d.set_ylim(-1.7, 1.7)
+
+    ax_e.set_xlim(-0.25, 0.15)
+    ax_e.set_ylim(-0.7, 0.7)
+
     for ax, label in zip([ax_a, ax_b, ax_c, ax_d, ax_e], "ABCDE"):
         ax.text(
             -0.28,
@@ -905,100 +758,28 @@ def make_figure(df, stats, subject_stats=None):
         )
 
     handles = [
-        plt.Line2D([0], [0], marker="o", color="none", markerfacecolor=color,
-                   markeredgecolor="white", markersize=6, label=label)
+        plt.Line2D(
+            [0],
+            [0],
+            marker="o",
+            color="none",
+            markerfacecolor=color,
+            markeredgecolor="white",
+            markersize=6,
+            label=label,
+        )
         for label, color in DIVISION_COLORS.items()
     ]
     ax_a.legend(handles=handles, loc="lower right", fontsize=fs.STAT_FS_2COL)
 
+
+# 5. Save figure and statistics
+
+def save_figure(fig):
     PNG_DIR.mkdir(parents=True, exist_ok=True)
     PDF_DIR.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight")
+    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", transparent=True)
     fig.savefig(OUT_PDF, bbox_inches="tight")
-
-
-def _draw_schematic(ax):
-    ax.set_axis_off()
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    cmap = plt.get_cmap("coolwarm")
-
-    left_nodes = [
-        (0.18, 0.72, 0.85),
-        (0.31, 0.64, 0.42),
-        (0.19, 0.48, -0.55),
-        (0.32, 0.39, 0.75),
-    ]
-    right_nodes = [
-        (0.69, 0.72, 0.70),
-        (0.82, 0.63, -0.35),
-        (0.70, 0.45, 0.88),
-        (0.83, 0.36, -0.62),
-    ]
-
-    def node_color(v):
-        return cmap((v + 1.0) / 2.0)
-
-    def draw_region(nodes, title_x, title):
-        for i, (x0, y0, _) in enumerate(nodes):
-            for x1, y1, _ in nodes[i + 1:]:
-                ax.plot([x0, x1], [y0, y1], color="#b9c0c8", lw=0.6, zorder=1)
-        for x, y, val in nodes:
-            ax.add_patch(
-                plt.Circle(
-                    (x, y),
-                    0.035,
-                    facecolor=node_color(val),
-                    edgecolor="black",
-                    lw=0.55,
-                    zorder=3,
-                )
-            )
-        ax.text(title_x, 0.82, title, ha="center", va="center",
-                fontsize=fs.TICK_FS_2COL)
-
-    draw_region(left_nodes, 0.25, "Region A")
-    draw_region(right_nodes, 0.76, "Region B")
-
-    edge_specs = [
-        (left_nodes[0], right_nodes[0], "#b2182b", 1.8),
-        (left_nodes[3], right_nodes[2], "#b2182b", 1.8),
-        (left_nodes[1], right_nodes[1], "#9aa4ad", 0.8),
-        (left_nodes[2], right_nodes[3], "#9aa4ad", 0.8),
-    ]
-    for src, tgt, color, lw in edge_specs:
-        ax.annotate(
-            "",
-            xy=(tgt[0] - 0.035, tgt[1]),
-            xytext=(src[0] + 0.035, src[1]),
-            arrowprops=dict(arrowstyle="->", lw=lw, color=color, alpha=0.9),
-            zorder=2,
-        )
-
-    ax.text(
-        0.50,
-        0.97,
-        r"$SC_k \approx \sigma_1 u_1 v_1^T$;  $DCA_i=c_{in,i}-c_{out,i}$",
-        ha="center",
-        va="center",
-        fontsize=fs.STAT_FS_2COL - 1,
-    )
-    ax.text(
-        0.50,
-        0.18,
-        r"$OO_{frac}(A)=\frac{\#\{A\to B: DCA_{src}>0,DCA_{tgt}>0\}}{\#\{A\to *\}}$",
-        ha="center",
-        va="center",
-        fontsize=fs.STAT_FS_2COL - 1,
-    )
-    ax.text(
-        0.50,
-        0.08,
-        r"$PostDCA(A)=mean(DCA_{target}\mid A\to target)$",
-        ha="center",
-        va="center",
-        fontsize=fs.STAT_FS_2COL - 1,
-    )
 
 
 def write_interpretation(stats):
@@ -1119,7 +900,7 @@ def _filter_complete_functional_regions(subject_df, region_df):
     return subject_filtered, region_filtered
 
 
-def     main():
+def parse_args():
     parser = argparse.ArgumentParser(
         description="Validate Post-DCA against output-to-output inter-regional motifs."
     )
@@ -1173,8 +954,10 @@ def     main():
             "positive uses dca > threshold; negative uses dca < threshold."
         ),
     )
-    args = parser.parse_args()
+    return parser.parse_args()
 
+
+def prepare_plot_data(args):
     use_cache = (not args.refresh) and _cached_results_available(include_raw=args.include_raw)
     if use_cache:
         print(f"Loading cached Figure 14 results from {FIG14_DATA_DIR}")
@@ -1192,8 +975,29 @@ def     main():
     subject_df, region_df = _filter_complete_functional_regions(subject_df, region_df)
     stats = compute_stats(region_df)
     subject_stats = compute_subject_stats(subject_df)
-    make_figure(region_df, stats, subject_stats=subject_stats)
-    write_interpretation(stats)
+    return {
+        "subject_df": subject_df,
+        "region_df": region_df,
+        "unit_region_df": region_df[region_df["Variant"] == "unit_norm"].copy(),
+        "stats": stats,
+        "subject_stats": subject_stats,
+        "fc_shift_mean_df": fc_shift_summary.load_tables()[2],
+    }
+
+
+def save_statistics(plot_data):
+    write_interpretation(plot_data["stats"])
+
+
+def main():
+    args = parse_args()
+    plot_data = prepare_plot_data(args)
+    fig, axes = prepare_layout()
+    draw_all_panels(axes, plot_data)
+    adjust_panel_positions_and_labels(fig, axes)
+    save_figure(fig)
+    save_statistics(plot_data)
+    plt.close(fig)
 
 
 if __name__ == "__main__":

@@ -17,15 +17,15 @@ figure9,Metastability,Mann-Whitney U,two-sided,Tel,Hind,49,182,1.652837029877281
 figure9,Metastability,Mann-Whitney U,two-sided,Di,Mes,56,28,0.001886390879681236,0.007545563518724944,True
 figure9,Metastability,Mann-Whitney U,two-sided,Di,Hind,56,182,0.057881739325461465,0.11576347865092293,False
 figure9,Metastability,Mann-Whitney U,two-sided,Mes,Hind,28,182,9.62741577479992e-07,5.776449464879952e-06,True
-figure9,NetTE,Mann-Whitney U,two-sided,Tel,Di,46,64,3.196715224288032e-07,1.5850768492080936e-06,True
-figure9,NetTE,Mann-Whitney U,two-sided,Tel,Mes,46,19,3.170153698416187e-07,1.5850768492080936e-06,True
-figure9,NetTE,Mann-Whitney U,two-sided,Tel,Hind,46,174,7.313128499220455e-12,4.387877099532273e-11,True
-figure9,NetTE,Mann-Whitney U,two-sided,Di,Mes,64,19,0.017870323956235407,0.035740647912470815,True
-figure9,NetTE,Mann-Whitney U,two-sided,Di,Hind,64,174,0.009553595273228433,0.0286607858196853,True
-figure9,NetTE,Mann-Whitney U,two-sided,Mes,Hind,19,174,0.36483187701674,0.36483187701674,False
-figure9,Neighbor NetTE,Mann-Whitney U,two-sided,Tel,Di,46,64,0.0031972754810154803,0.009799476738056747,True
-figure9,Neighbor NetTE,Mann-Whitney U,two-sided,Tel,Mes,46,19,7.079334040113625e-05,0.0003539667020056812,True
-figure9,Neighbor NetTE,Mann-Whitney U,two-sided,Tel,Hind,46,174,3.3767072132031943e-07,2.0260243279219166e-06,True
-figure9,Neighbor NetTE,Mann-Whitney U,two-sided,Di,Mes,64,19,0.002449869184514187,0.009799476738056747,True
-figure9,Neighbor NetTE,Mann-Whitney U,two-sided,Di,Hind,64,174,0.006632838218589225,0.01326567643717845,True
-figure9,Neighbor NetTE,Mann-Whitney U,two-sided,Mes,Hind,19,174,0.09541740963824448,0.09541740963824448,False
+figure9,$\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Tel,Di,46,64,3.196715224288032e-07,1.5850768492080936e-06,True
+figure9,$\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Tel,Mes,46,19,3.170153698416187e-07,1.5850768492080936e-06,True
+figure9,$\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Tel,Hind,46,174,7.313128499220455e-12,4.387877099532273e-11,True
+figure9,$\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Di,Mes,64,19,0.017870323956235407,0.035740647912470815,True
+figure9,$\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Di,Hind,64,174,0.009553595273228433,0.0286607858196853,True
+figure9,$\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Mes,Hind,19,174,0.36483187701674,0.36483187701674,False
+figure9,Neighbor $\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Tel,Di,46,64,0.0031972754810154803,0.009799476738056747,True
+figure9,Neighbor $\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Tel,Mes,46,19,7.079334040113625e-05,0.0003539667020056812,True
+figure9,Neighbor $\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Tel,Hind,46,174,3.3767072132031943e-07,2.0260243279219166e-06,True
+figure9,Neighbor $\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Di,Mes,64,19,0.002449869184514187,0.009799476738056747,True
+figure9,Neighbor $\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Di,Hind,64,174,0.006632838218589225,0.01326567643717845,True
+figure9,Neighbor $\mathrm{TE}_{\mathrm{net}}$,Mann-Whitney U,two-sided,Mes,Hind,19,174,0.09541740963824448,0.09541740963824448,False

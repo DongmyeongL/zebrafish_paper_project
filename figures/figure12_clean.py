@@ -3,6 +3,13 @@ import pickle
 import warnings
 import itertools
 
+# Figure 12 workflow:
+# 1. Load data and prepare derived quantities for plotting.
+# 2. Prepare the figure layout and axes.
+# 3. Draw each panel.
+# 4. Adjust panel positions and add panel labels.
+# 5. Save figure files and statistics.
+
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
 import matplotlib.patches as mpatches
@@ -10,7 +17,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from matplotlib.colors import Normalize
 from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
+from matplotlib.ticker import FuncFormatter
 from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 from scipy.stats import mannwhitneyu
 from statsmodels.stats.multitest import multipletests
@@ -47,6 +56,9 @@ VALID_DIVISIONS = [2, 1, 3, 0]
 STATS_ROWS = []
 
 
+# ============================================================
+# 1. Data loading and plotting calculations
+# ============================================================
 def _load_panel_a_feature_matrix():
     with open(os.path.join(DATA, "sc_original_per_area_network_metrics.pkl"), "rb") as f:
         metrics = pickle.load(f)
@@ -76,8 +88,8 @@ def _load_panel_a_feature_matrix():
         ("Clustering", metrics["clustering_data"]),
         ("Modularity\nQ", metrics["q_data"]),
         ("Global\nEfficiency", metrics["Eglob_data"]),
-        ("Post-DCA", post_dca),
-        ("Pre-DCA", pre_dca),
+        (r"$\mathbf{DCA}_{\mathbf{post}}$", post_dca),
+        (r"$\mathbf{DCA}_{\mathbf{pre}}$", pre_dca),
         ("log10\n(Out/In-deg)", degree_by_region),
     ]
     region_to_idx = {region_name: idx for idx, region_name in enumerate(fs.region[:72])}
@@ -256,7 +268,7 @@ def _draw_sc_network_panel(ax):
     ax.text(
         0.42,
         arrow_y - 0.24,
-        "Post-DCA",
+        r"$\mathbf{DCA}_{\mathbf{post}}$",
         ha="left",
         va="top",
         fontsize=9,
@@ -322,6 +334,20 @@ def _division_lists_to_df(division_lists):
     })
 
 
+def _load_bottom_panel_data():
+    sc_division_data = _load_sc_division_metrics()
+    return {
+        "Clustering": _division_lists_to_df(sc_division_data["Clustering"]),
+        "Modularity Q": _division_lists_to_df(sc_division_data["Modularity Q"]),
+        "Global Efficiency": _division_lists_to_df(sc_division_data["Global Efficiency"]),
+        "Post-DCA": pd.read_csv(os.path.join(DATA, "fig3_prism_A_PostDCA.csv")),
+        "Pre-DCA": pd.read_csv(os.path.join(DATA, "fig3_prism_B_PreDCA.csv")),
+    }
+
+
+# ============================================================
+# Plotting helpers
+# ============================================================
 def _record_division_stats(panel, df, order):
     groups = [df[k].dropna().values for k in order]
     pairs = list(itertools.combinations(range(len(order)), 2))
@@ -409,8 +435,8 @@ def _boxplot_panel(ax, df, ylabel):
     _add_sig_bars(ax, {c: df[c] for c in DIVISION_COLUMNS}, DIVISION_COLUMNS, ylabel)
 
 
-def _draw_panel_a(fig, subspec):
-    feature_matrix, feature_labels, regions, divisions = _load_panel_a_feature_matrix()
+def _draw_panel_a(fig, subspec, panel_a_data):
+    feature_matrix, feature_labels, regions, divisions = panel_a_data
     n_regions = feature_matrix.shape[1]
     z_linkage = linkage(feature_matrix.T, method="ward")
     z_linkage = hm._reorder_linkage_tel_first(z_linkage, divisions)
@@ -503,7 +529,7 @@ def _draw_panel_a(fig, subspec):
         text.set_fontweight("bold")
 
 
-def _draw_panel_b(fig, subspec):
+def _draw_panels_b_c(fig, subspec):
     container = fig.add_subplot(subspec)
     container.axis("off")
 
@@ -543,6 +569,7 @@ def _draw_panel_b(fig, subspec):
         ("Ra", "pRF"),
         ("Ra", "imRF"),
     ]
+    c_axes = []
     for i, (fname, (top_label, bottom_label)) in enumerate(zip(files, bottom_labels)):
         ax = fig.add_subplot(c_gs[i // 2, i % 2])
         ax.imshow(plt.imread(os.path.join(DATA, fname)))
@@ -562,12 +589,83 @@ def _draw_panel_b(fig, subspec):
                 ha="center", va="center", fontsize=fs.AXIS_LABEL_FS_2COL,
                 fontweight="bold", color="#333333")
         ax.axis("off")
+        c_axes.append(ax)
+
+    c_positions = [ax.get_position() for ax in c_axes]
+    c_x0 = min(pos.x0 for pos in c_positions)
+    c_x1 = max(pos.x1 for pos in c_positions)
+    c_y0 = min(pos.y0 for pos in c_positions)
+    cbar_ax = fig.add_axes([c_x0 + 0.18 * (c_x1 - c_x0), c_y0 - 0.030, 0.36 * (c_x1 - c_x0), 0.010])
+    cbar_mappable = plt.cm.ScalarMappable(norm=Normalize(vmin=0, vmax=1), cmap="jet")
+    cbar_mappable.set_array([])
+    cbar = fig.colorbar(cbar_mappable, cax=cbar_ax, orientation="horizontal")
+    cbar.set_ticks([0, 1])
+    cbar.set_ticklabels(["low", "high"])
+    cbar.ax.tick_params(labelsize=fs.TICK_FS_2COL - 1, length=2, pad=1)
+    cbar.set_label(
+         r"$\mathrm{DCA}$",
+        fontsize=fs.TICK_FS_2COL,
+        labelpad=0.1,
+    )
+    cbar_ax.annotate(
+        "",
+        xy=(1.18, 1.85),
+        xytext=(1.18, -0.85),
+        xycoords=cbar_ax.transAxes,
+        arrowprops=dict(arrowstyle="-|>", color="#e5a247", lw=2.4, mutation_scale=12),
+        clip_on=False,
+    )
+    cbar_ax.annotate(
+        "",
+        xy=(1.34, -1.85+0.33),
+        xytext=(1.34, 0.85+0.33),
+        xycoords=cbar_ax.transAxes,
+        arrowprops=dict(arrowstyle="-|>", color="#8bcef4", lw=2.4, mutation_scale=12),
+        clip_on=False,
+    )
 
     pos = ax_network.get_position()
-    ax_network.set_position([pos.x0 + 0.06, pos.y0, pos.width * 0.7, pos.height])
+    ax_network.set_position([pos.x0 + 0.06, pos.y0, pos.width * 0.82, pos.height])
+
+
+def _adjust_bottom_panel_positions(axes):
+    for ax in axes:
+        pos = ax.get_position()
+        center_x = pos.x0 + pos.width / 2
+        center_y = pos.y0 + pos.height / 2
+        new_width = pos.width * 0.8
+        new_height = pos.height * 0.45
+        ax.set_position([
+            center_x - new_width / 2,
+            center_y - new_height / 2,
+            new_width,
+            new_height,
+        ])
+
+
+def _add_bottom_panel_labels(axes):
+    for label, ax in zip(["D", "E", "F", "G", "H"], axes):
+        ax.text(
+            -0.36, 1.02, label,
+            transform=ax.transAxes,
+            fontsize=fs.PANEL_LABEL_FS_2COL,
+            fontweight="bold",
+            va="bottom",
+        )
+
 
 def main():
     STATS_ROWS.clear()
+
+    # ============================================================
+    # 1. Data loading and plotting calculations
+    # ============================================================
+    panel_a_data = _load_panel_a_feature_matrix()
+    bottom_panel_data = _load_bottom_panel_data()
+
+    # ============================================================
+    # 2. Layout preparation
+    # ============================================================
     fig = plt.figure(figsize=(16, 9))
     gs = GridSpec(
         5, 10, figure=fig,
@@ -577,42 +675,43 @@ def main():
         hspace=0.20, wspace=0.30,
     )
 
-    _draw_panel_a(fig, gs[0:3, 0:5])
-    _draw_panel_b(fig, gs[0:3, 5:10])
-
     ax_c = fig.add_subplot(gs[3:5, 0:2])
     ax_d = fig.add_subplot(gs[3:5, 2:4])
     ax_e = fig.add_subplot(gs[3:5, 4:6])
     ax_f = fig.add_subplot(gs[3:5, 6:8])
     ax_g = fig.add_subplot(gs[3:5, 8:10])
+    bottom_axes = [ax_c, ax_d, ax_e, ax_f, ax_g]
 
-    sc_division_data = _load_sc_division_metrics()
-    _boxplot_panel(ax_c, _division_lists_to_df(sc_division_data["Clustering"]), "Clustering")
-    _boxplot_panel(ax_d, _division_lists_to_df(sc_division_data["Modularity Q"]), "Modularity Q")
-    _boxplot_panel(ax_e, _division_lists_to_df(sc_division_data["Global Efficiency"]), "Global Efficiency")
+    # ============================================================
+    # 3. Draw each panel
+    # ============================================================
+    _draw_panel_a(fig, gs[0:3, 0:5], panel_a_data)
+    _draw_panels_b_c(fig, gs[0:3, 5:10])
+    _boxplot_panel(ax_c, bottom_panel_data["Clustering"], "Clustering")
+    ax_c.yaxis.set_major_formatter(FuncFormatter(lambda value, pos: f"{value * 1e2:g}"))
+    ax_c.text(
+        -0.22, 1.02, r"$\times 10^{-2}$",
+        transform=ax_c.transAxes,
+        fontsize=fs.TICK_FS_2COL,
+        ha="left",
+        va="bottom",
+    )
+    _boxplot_panel(ax_d, bottom_panel_data["Modularity Q"], "Modularity Q")
+    _boxplot_panel(ax_e, bottom_panel_data["Global Efficiency"], "Global Efficiency")
+    _boxplot_panel(ax_f, bottom_panel_data["Post-DCA"], r"$\mathrm{DCA}_{\mathrm{post}}$")
+    _boxplot_panel(ax_g, bottom_panel_data["Pre-DCA"], r"$\mathrm{DCA}_{\mathrm{pre}}$")
 
-    post_dca = pd.read_csv(os.path.join(DATA, "fig3_prism_A_PostDCA.csv"))
-    pre_dca = pd.read_csv(os.path.join(DATA, "fig3_prism_B_PreDCA.csv"))
-    _boxplot_panel(ax_f, post_dca, "Post-DCA")
-    _boxplot_panel(ax_g, pre_dca, "Pre-DCA")
+    # ============================================================
+    # 4. Panel position adjustment and panel labels
+    # ============================================================
+    _adjust_bottom_panel_positions(bottom_axes)
+    _add_bottom_panel_labels(bottom_axes)
 
-    for label, ax in zip(["D", "E", "F", "G", "H"], [ax_c, ax_d, ax_e, ax_f, ax_g]):
-        ax.text(-0.36, 1.02, label, transform=ax.transAxes,
-                fontsize=fs.PANEL_LABEL_FS_2COL, fontweight="bold", va="bottom")
-
-    for _ax in [ax_c, ax_d, ax_e, ax_f, ax_g]:
-        _p  = _ax.get_position()
-        _cx = _p.x0 + _p.width  / 2
-        _cy = _p.y0 + _p.height / 2
-        _nw = _p.width  * 0.8
-        _nh = _p.height * 0.45
-        _ax.set_position([_cx - _nw/2, _cy - _nh/2, _nw, _nh])
-
-
-
-
-    fig.savefig(OUTPUT_PNG, dpi=300, bbox_inches="tight")
-    fig.savefig(OUTPUT_PDF, bbox_inches="tight")
+    # ============================================================
+    # 5. Save figure and statistics
+    # ============================================================
+    fig.savefig(OUTPUT_PNG, dpi=600, bbox_inches="tight",transparent=True)
+    #fig.savefig(OUTPUT_PDF, bbox_inches="tight")
     os.makedirs(STATS_DIR, exist_ok=True)
     pd.DataFrame(STATS_ROWS).to_csv(STATS_CSV, index=False)
     print(f"Saved {STATS_CSV}")

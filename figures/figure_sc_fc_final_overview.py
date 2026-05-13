@@ -22,6 +22,13 @@ import figure_regionwise_multivariate_coupling as coupling
 import figure12_clean as figure12
 import figure_style as fs
 
+# Workflow:
+# 1. Data loading and plotting calculations.
+# 2. Layout preparation.
+# 3. Draw each panel.
+# 4. Panel position adjustment and panel labels.
+# 5. Save figure and statistics.
+
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -52,8 +59,20 @@ DIVISION_COLORS = {
     "Hind": fs.division_colors[0],
 }
 
-SC_DISPLAY_LABELS = ["Clust.", "Mod Q", "Glob Eff.", "Post-DCA", "Pre-DCA", "log10(O/I deg)"]
-FC_DISPLAY_LABELS = ["FCS", "FCV", "Metastab.", "Net TE", "Neigh. TE"]
+DCA_POST_LABEL = r"$\mathrm{DCA}_{\mathrm{post}}$"
+DCA_PRE_LABEL = r"$\mathrm{DCA}_{\mathrm{pre}}$"
+TE_NET_LABEL = r"$\mathrm{TE}_{\mathrm{net}}$"
+SC_DISPLAY_LABELS = ["Clust.", "Mod Q", "Glob Eff.", DCA_POST_LABEL, DCA_PRE_LABEL, "log10\n(O/I deg)"]
+FC_DISPLAY_LABELS = ["FCS", "FCV", "Metastab.", TE_NET_LABEL, "Neigh. " + TE_NET_LABEL]
+SC_HEATMAP_LABELS = [
+    "Clust.",
+    "Mod Q",
+    "Glob Eff.",
+    DCA_POST_LABEL,
+    DCA_PRE_LABEL,
+    "log10(O/I deg)",
+]
+FC_HEATMAP_LABELS = ["FCS", "FCV", "Metastab.", TE_NET_LABEL, "Neigh. " + TE_NET_LABEL]
 ANNOT_FS = 6.5
 SMALL_FS = 8
 AXIS_FS = 9
@@ -63,6 +82,8 @@ OTHER_AXIS_FS = 10
 OTHER_PANEL_FS = 13
 TEL_LABELS = {"lOB", "rP", "rPO", "rSP"}
 
+
+# 1. Data loading and plotting calculations
 
 def load_data():
     fc_regions, fc_divisions, X_fc, fc_labels = coupling.load_fc_matrix()
@@ -177,6 +198,44 @@ def leave_one_region_out_fcv_betas(X_sc, X_fc, fc_labels):
         beta_rows.append(betas)
     return np.asarray(beta_rows, dtype=float)
 
+
+def prepare_plot_data():
+    data = load_data()
+    corr, corr_p, corr_p_fdr, corr_fdr_sig = compute_corr(data["X_fc"], data["X_sc"])
+    pls, fc_lv1, sc_lv1, pls_r, pls_p = fit_pls(data["X_fc"], data["X_sc"])
+    loo_fc_weights, loo_sc_weights = leave_one_region_out_pls_weights(
+        data["X_fc"], data["X_sc"], pls
+    )
+    y_obs, y_pred, cv_r, cv_p, cv_r2, betas = fit_linear_fcv(
+        data["X_sc"], data["X_fc"], data["fc_labels"]
+    )
+    loo_betas = leave_one_region_out_fcv_betas(
+        data["X_sc"], data["X_fc"], data["fc_labels"]
+    )
+    return {
+        "data": data,
+        "corr": corr,
+        "corr_p": corr_p,
+        "corr_p_fdr": corr_p_fdr,
+        "corr_fdr_sig": corr_fdr_sig,
+        "pls": pls,
+        "fc_lv1": fc_lv1,
+        "sc_lv1": sc_lv1,
+        "pls_r": pls_r,
+        "pls_p": pls_p,
+        "loo_fc_weights": loo_fc_weights,
+        "loo_sc_weights": loo_sc_weights,
+        "y_obs": y_obs,
+        "y_pred": y_pred,
+        "cv_r": cv_r,
+        "cv_p": cv_p,
+        "cv_r2": cv_r2,
+        "betas": betas,
+        "loo_betas": loo_betas,
+    }
+
+
+# Plotting helpers
 
 def scatter_by_division(ax, x, y, divisions, regions):
     tel_mask = divisions == "Tel"
@@ -300,19 +359,14 @@ def draw_horizontal_bars(
     ax.margins(x=0.12)
 
 
-def main():
-    data = load_data()
-    corr, corr_p, corr_p_fdr, corr_fdr_sig = compute_corr(data["X_fc"], data["X_sc"])
-    pls, fc_lv1, sc_lv1, pls_r, pls_p = fit_pls(data["X_fc"], data["X_sc"])
-    loo_fc_weights, loo_sc_weights = leave_one_region_out_pls_weights(
-        data["X_fc"], data["X_sc"], pls
-    )
-    y_obs, y_pred, cv_r, cv_p, cv_r2, betas = fit_linear_fcv(data["X_sc"], data["X_fc"], data["fc_labels"])
-    loo_betas = leave_one_region_out_fcv_betas(
-        data["X_sc"], data["X_fc"], data["fc_labels"]
-    )
+def _format_p_value(p_value):
+    return f"{p_value:.3g}" if p_value >= 0.001 else "< 0.001"
 
-    fig = plt.figure(figsize=(16.0, 3.9))
+
+# 2. Layout preparation
+
+def prepare_layout():
+    fig = plt.figure(figsize=(16.0,4.0))
     gs = GridSpec(
         1, 6, figure=fig,
         width_ratios=[1.50, 1.18, 0.80, 0.95, 1.18, 0.95],
@@ -326,7 +380,22 @@ def main():
     ax_scw = fig.add_subplot(gs[0, 3])
     ax_pred = fig.add_subplot(gs[0, 4])
     ax_beta = fig.add_subplot(gs[0, 5])
+    axes = {
+        "heat": ax_heat,
+        "pls": ax_pls,
+        "fcw": ax_fcw,
+        "scw": ax_scw,
+        "pred": ax_pred,
+        "beta": ax_beta,
+    }
+    return fig, axes
 
+
+# 3. Draw each panel
+
+def draw_panel_a(ax_heat, plot_data):
+    corr = plot_data["corr"]
+    corr_fdr_sig = plot_data["corr_fdr_sig"]
     heat = sns.heatmap(
         corr,
         ax=ax_heat,
@@ -337,16 +406,15 @@ def main():
         center=0,
         vmin=-1,
         vmax=1,
-        linewidths=1.1,
-        linecolor="white",
+        linewidths=0.8,
+        linecolor="black",
         cbar_kws={
             #"label": "Pearson r",
-            "shrink": 0.90,
             "pad": 0.025,
             "ticks": [-1.0, -0.5, 0.0, 0.5, 1.0],
         },
-        xticklabels=SC_DISPLAY_LABELS,
-        yticklabels=FC_DISPLAY_LABELS,
+        xticklabels=SC_HEATMAP_LABELS,
+        yticklabels=FC_HEATMAP_LABELS,
     )
     for text, value, is_sig in zip(ax_heat.texts, corr.flatten(), corr_fdr_sig.flatten()):
         text.set_fontweight("bold" if is_sig else "normal")
@@ -360,21 +428,46 @@ def main():
     ax_heat.set_ylabel("")
     ax_heat.tick_params(axis="x", rotation=32, labelsize=SMALL_FS, pad=2)
     ax_heat.tick_params(axis="y", rotation=0, labelsize=SMALL_FS, pad=2)
+    for spine in ax_heat.spines.values():
+        spine.set_visible(True)
+        spine.set_linewidth(1.1)
+        spine.set_edgecolor("black")
     for label in ax_heat.get_xticklabels():
         label.set_horizontalalignment("right")
-    heat.collections[0].colorbar.ax.tick_params(labelsize=SMALL_FS)
-    heat.collections[0].colorbar.ax.yaxis.label.set_size(SMALL_FS)
+    cbar_ax = heat.collections[0].colorbar.ax
+    cbar_pos = cbar_ax.get_position()
+    heat_pos = ax_heat.get_position()
+    cbar_ax.set_position([cbar_pos.x0+0.005, heat_pos.y0, cbar_pos.width, heat_pos.height])
+    cbar_ax.tick_params(labelsize=SMALL_FS)
+    cbar_ax.yaxis.label.set_size(SMALL_FS)
 
+
+def draw_panel_b(ax_pls, plot_data):
+    data = plot_data["data"]
+    fc_lv1 = plot_data["fc_lv1"]
+    sc_lv1 = plot_data["sc_lv1"]
+    pls_p = plot_data["pls_p"]
+    pls_r = plot_data["pls_r"]
     scatter_by_division(ax_pls, fc_lv1, sc_lv1, data["divisions"], data["regions"])
     ax_pls.set_title("")
     ax_pls.set_xlabel("FC score (LV1)", labelpad=2)
     ax_pls.set_ylabel("SC score (LV1)", labelpad=2)
-    p_text = f"{pls_p:.3g}" if pls_p >= 0.001 else "< 0.001"
+    p_text = _format_p_value(pls_p)
     ax_pls.text(0.04, 0.96, f"r = {pls_r:.3f}\np {p_text}", transform=ax_pls.transAxes, ha="left", va="top", fontsize=OTHER_SMALL_FS)
-    ax_pls.legend(frameon=False, loc="lower right", ncol=2, fontsize=OTHER_SMALL_FS, handletextpad=0.3, columnspacing=0.75)
+    ax_pls.legend(
+        frameon=False,
+        loc="lower right",
+        ncol=1,
+        fontsize=OTHER_SMALL_FS,
+        handletextpad=0.3,
+        labelspacing=0.25,
+    )
     ax_pls.xaxis.set_major_locator(MaxNLocator(nbins=4))
     ax_pls.yaxis.set_major_locator(MaxNLocator(nbins=4))
 
+
+def draw_panel_c(ax_fcw, plot_data):
+    pls = plot_data["pls"]
     draw_horizontal_bars(
         ax_fcw,
         FC_DISPLAY_LABELS,
@@ -384,32 +477,43 @@ def main():
         highlight_color="#E45756",
         xlabel="FC LV1 weight",
         title="",
-        point_values=loo_fc_weights,
+        point_values=plot_data["loo_fc_weights"],
     )
     ax_fcw.tick_params(axis="y", labelsize=OTHER_SMALL_FS)
     ax_fcw.tick_params(axis="x", labelsize=OTHER_SMALL_FS)
     ax_fcw.xaxis.labelpad = 2
 
+
+def draw_panel_d(ax_scw, plot_data):
+    pls = plot_data["pls"]
     draw_horizontal_bars(
         ax_scw,
         SC_DISPLAY_LABELS,
         pls.y_weights_[:, 0],
         base_color="#4C78A8",
-        highlight_label="Post-DCA",
+        highlight_label=DCA_POST_LABEL,
         highlight_color="#E45756",
         xlabel="SC LV1 weight",
         title="",
-        point_values=loo_sc_weights,
+        point_values=plot_data["loo_sc_weights"],
     )
     ax_scw.tick_params(axis="y", labelsize=OTHER_SMALL_FS)
     ax_scw.tick_params(axis="x", labelsize=OTHER_SMALL_FS)
     ax_scw.xaxis.labelpad = 2
 
+
+def draw_panel_e(ax_pred, plot_data):
+    data = plot_data["data"]
+    y_obs = plot_data["y_obs"]
+    y_pred = plot_data["y_pred"]
+    cv_r = plot_data["cv_r"]
+    cv_p = plot_data["cv_p"]
+    cv_r2 = plot_data["cv_r2"]
     scatter_predicted_by_division(ax_pred, y_obs, y_pred, data["divisions"], data["regions"])
     ax_pred.set_title("")
     ax_pred.set_xlabel("Observed FCV", labelpad=2)
     ax_pred.set_ylabel("Predicted FCV", labelpad=2)
-    cv_p_text = f"{cv_p:.3g}" if cv_p >= 0.001 else "< 0.001"
+    cv_p_text = _format_p_value(cv_p)
     ax_pred.text(
         0.03, 0.97,
         f"5-fold CV\nr = {cv_r:.3f}\np {cv_p_text}\nR² = {cv_r2:.3f}",
@@ -422,30 +526,53 @@ def main():
         frameon=False,
         loc="lower right",
         bbox_to_anchor=(1.08, -0.02),
-        ncol=2,
+        ncol=1,
         fontsize=OTHER_SMALL_FS,
         handletextpad=0.3,
-        columnspacing=0.75,
+        labelspacing=0.25,
     )
     ax_pred.xaxis.set_major_locator(MaxNLocator(nbins=4))
     ax_pred.yaxis.set_major_locator(MaxNLocator(nbins=4))
 
+
+def draw_panel_f(ax_beta, plot_data):
     draw_horizontal_bars(
         ax_beta,
         SC_DISPLAY_LABELS,
-        betas,
+        plot_data["betas"],
         base_color="#54A24B",
-        highlight_label="Post-DCA",
+        highlight_label=DCA_POST_LABEL,
         highlight_color="#E45756",
         xlabel="Standardized beta",
         title="",
-        point_values=loo_betas,
+        point_values=plot_data["loo_betas"],
     )
     ax_beta.tick_params(axis="y", labelsize=OTHER_SMALL_FS)
     ax_beta.tick_params(axis="x", labelsize=OTHER_SMALL_FS)
     ax_beta.xaxis.labelpad = 2
 
-    panel_axes = [ax_heat, ax_pls, ax_fcw, ax_scw, ax_pred, ax_beta]
+
+def draw_all_panels(axes, plot_data):
+    draw_panel_a(axes["heat"], plot_data)
+    draw_panel_b(axes["pls"], plot_data)
+    draw_panel_c(axes["fcw"], plot_data)
+    draw_panel_d(axes["scw"], plot_data)
+    draw_panel_e(axes["pred"], plot_data)
+    draw_panel_f(axes["beta"], plot_data)
+
+
+# 4. Panel position adjustment and panel labels
+
+def adjust_panel_positions_and_labels(fig, axes):
+    ax_heat = axes["heat"]
+    panel_axes = [
+        axes["heat"],
+        axes["pls"],
+        axes["fcw"],
+        axes["scw"],
+        axes["pred"],
+        axes["beta"],
+    ]
     panel_labels = list("ABCDEF")
     ax_heat.tick_params(labelsize=SMALL_FS)
     ax_heat.xaxis.label.set_size(AXIS_FS)
@@ -467,10 +594,34 @@ def main():
             ha="right",
             va="bottom",
         )
-        
-        
-    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.03,transparent=True)
+
+
+# 5. Save figure and statistics
+
+def save_figure(fig):
+    fig.savefig(OUT_PNG, dpi=600, bbox_inches="tight", pad_inches=0.03, transparent=True)
     fig.savefig(OUT_PDF, dpi=600, bbox_inches="tight", pad_inches=0.03)
+
+
+def save_statistics(plot_data):
+    data = plot_data["data"]
+    corr = plot_data["corr"]
+    corr_p = plot_data["corr_p"]
+    corr_p_fdr = plot_data["corr_p_fdr"]
+    corr_fdr_sig = plot_data["corr_fdr_sig"]
+    pls = plot_data["pls"]
+    pls_r = plot_data["pls_r"]
+    pls_p = plot_data["pls_p"]
+    loo_fc_weights = plot_data["loo_fc_weights"]
+    loo_sc_weights = plot_data["loo_sc_weights"]
+    y_obs = plot_data["y_obs"]
+    y_pred = plot_data["y_pred"]
+    cv_r = plot_data["cv_r"]
+    cv_p = plot_data["cv_p"]
+    cv_r2 = plot_data["cv_r2"]
+    betas = plot_data["betas"]
+    loo_betas = plot_data["loo_betas"]
+
     os.makedirs(STATS_DIR, exist_ok=True)
     pd.DataFrame([
         {"figure": "figure_sc_fc_final_overview", "panel": "B", "test": "Pearson correlation", "metric": "PLS LV1 FC score vs SC score", "r": pls_r, "p_value": pls_p, "n_regions": len(data["regions"])},
@@ -544,6 +695,15 @@ def main():
         "predicted_fcv_5fold": y_pred,
         "residual": y_obs - y_pred,
     }).to_csv(STATS_PREDICTIONS, index=False)
+
+
+def main():
+    plot_data = prepare_plot_data()
+    fig, axes = prepare_layout()
+    draw_all_panels(axes, plot_data)
+    adjust_panel_positions_and_labels(fig, axes)
+    save_figure(fig)
+    save_statistics(plot_data)
     plt.close(fig)
 
     print(f"Saved {OUT_PNG}")
